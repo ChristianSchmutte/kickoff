@@ -1,13 +1,12 @@
 import styles from './app.module.scss';
+import Feed from './feed/feed';
 
 import { ReactComponent as Logo } from './logo.svg';
 import star from './star.svg';
 
 export function App() {
   return (
-    <div>
-      Welcome to Kickoff
-    </div>
+    <Feed />
   );
 }
 
