@@ -5,7 +5,9 @@ import star from './star.svg';
 
 export function App() {
   return (
-    <div></div>
+    <div>
+      Welcome to Kickoff
+    </div>
   );
 }
 
