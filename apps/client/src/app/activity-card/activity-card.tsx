@@ -1,32 +1,81 @@
 import React from 'react';
-
-import './activity-card.module.scss';
+import Moment from 'moment';
+import styles from './activity-card.module.scss';
+import user from '../../assets/user.svg';
+import photo from '../../assets/photo.jpeg';
 
 /* eslint-disable-next-line */
 export interface ActivityCardProps {
   title: string;
   description: string;
-  timestamp: number;
+  startTimestamp: number;
+  endTimestamp?: number;
   location: string;
 }
 
-function formatTimeStamp(timestamp: number): string {
-  return `${timestamp}`;
+// const mockActivityCard: ActivityCardProps = {
+//   title: 'title',
+//   description: 'description',
+//   startTimestamp: Date.now(),
+//   endTimestamp: new Date(2022, 11, 24, 10, 33, 30, 0).getTime(),
+//   location: 'string'
+// }
+
+function convertToMoment(timestamp: number): number[] {
+  const getFullYear = new Date(timestamp).getFullYear();
+  const getMonth = new Date(timestamp).getMonth();
+  const getDay = new Date(timestamp).getDate();
+  return [getFullYear, getMonth, getDay];
+}
+
+function formatTimeRemaing(timestamp: number): string {
+  console.log({
+    'starting time': Moment(convertToMoment(timestamp)).format(
+      'YYYY, MMM Do h:mm a'
+    ),
+  });
+
+  const a: Moment.Moment = Moment(convertToMoment(Date.now()));
+  const b: Moment.Moment = Moment(convertToMoment(timestamp));
+  const timeRemaining: string = a.to(b);
+  return timeRemaining;
+}
+
+function formatFromStartToFinish(start: number, finish: number): string {
+  return `${Moment(start).format('MMM, Do h:mm a')} to ${Moment(finish).format(
+    'h:mm a'
+  )}`;
 }
 
 export function ActivityCard({
   title,
   description,
-  timestamp,
-  location
+  startTimestamp,
+  endTimestamp,
+  location,
 }: ActivityCardProps): JSX.Element {
-  const formatedTime: string = formatTimeStamp(timestamp);
+  const timeRemaining: string = formatTimeRemaing(startTimestamp);
+  const fromStartToFinish: string = formatFromStartToFinish(
+    startTimestamp,
+    endTimestamp
+  );
+
   return (
-    <div>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <p>{formatedTime}</p>
-      <p>{location}</p>
+    <div className={styles.container}>
+      <img className={styles.photo} src={photo} alt="profile" />
+      <h3 className={styles.title}>{title}</h3>
+      <h6 className={styles.remaining}>{timeRemaining}</h6>
+      <div className={styles.description}>
+        <div className={styles.text}>{description}</div>
+      </div>
+      <p className={styles.location}>{location}</p>
+      <div className={styles.startToFinish}>{fromStartToFinish}</div>
+      <button type="button" className={styles.join}>
+        <span>Join</span>
+      </button>
+      <div className={styles.participants}>
+        <img src={user} alt="user icon" />
+      </div>
     </div>
   );
 }
