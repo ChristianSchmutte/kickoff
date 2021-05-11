@@ -31,7 +31,8 @@ const mockActivities: Activity[] = [
   {
     title: 'Bball here',
     description: 'Stuff about bball',
-    timestamp: Date.now(),
+    startTimestamp: new Date(2021, 4, 12, 11).getTime(),
+    endTimestamp: new Date(2021, 4, 13, 13).getTime(),
     location: 'Middle of nowhere'
   },
 ]
