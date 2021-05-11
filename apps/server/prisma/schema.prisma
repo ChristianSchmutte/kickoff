@@ -11,10 +11,10 @@ generator client {
 }
 
 model Activity {
-  id                      Int     @id @default(autoincrement())
+  id                      Int       @id @default(autoincrement())
   title                   String
   description             String
-  participants            User[]  @relation("user_activity")
+  participants            User[]    @relation("user_activity")
   organizer               User    @relation(fields: [organizerId], references: [id])
   organizerId             Int
   location                Location @relation(fields: [locationId], references: [id])
