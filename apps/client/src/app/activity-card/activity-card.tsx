@@ -54,8 +54,10 @@ export function ActivityCard({
   // profilePics: An array of profile pictures for every participant
   const [profilePics, setProfilePics] = useState([]);
 
-  const arrayOfProfilePics = profilePics.map(({ img, id }) => (
-    <img key={id} src={img} alt="profile" />
+  const renderProfilePics = profilePics.map(({ img, id }) => (
+    <div className={styles.profilePicWrapper}>
+      <img className={styles.profilePic} key={id} src={img} alt="profile" />
+    </div>
   ));
 
   return (
@@ -63,16 +65,20 @@ export function ActivityCard({
       <img className={styles.photo} src={photo} alt="profile" />
       <h3 className={styles.title}>{title}</h3>
       <h6 className={styles.remaining}>{timeRemaining}</h6>
-      <div className={styles.description}>
-        <div className={styles.text}>{description}</div>
+      <div className={styles.descriptionWrapper}>
+        <div className={styles.description}>
+          {description.length > 200
+            ? 'Number of characters exceeds limit of 200!'
+            : description}
+        </div>
       </div>
       <p className={styles.location}>{location}</p>
       <div className={styles.startToFinish}>{fromStartToFinish}</div>
       <button type="button" className={styles.join}>
         <span>Join</span>
       </button>
-      <div className={styles.participants}>
-        {arrayOfProfilePics ? arrayOfProfilePics : undefined}
+      <div className={styles.particpants}>
+        {renderProfilePics ? renderProfilePics : undefined}
       </div>
     </div>
   );
