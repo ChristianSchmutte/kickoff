@@ -75,7 +75,7 @@ export function ActivityCard({
       <div className={styles.descriptionWrapper}>
         <div className={styles.description}>
           {description.length > 200
-            ? 'Number of characters exceeds limit of 200!'
+            ? 'Number of characters exceeds the limit of 200!'
             : description}
         </div>
       </div>
