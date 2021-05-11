@@ -21,11 +21,11 @@ function convertToMoment(timestamp: number): [number, number, number] {
 }
 
 function formatTimeRemaing(timestamp: number): string {
-  console.log({
-    'starting time': Moment(convertToMoment(timestamp)).format(
-      'YYYY, MMM Do h:mm a'
-    ),
-  });
+  // console.log({
+  //   'starting time': Moment(convertToMoment(timestamp)).format(
+  //     'YYYY, MMM Do h:mm a'
+  //   ),
+  // });
   const a: Moment.Moment = Moment(convertToMoment(Date.now()));
   const b: Moment.Moment = Moment(convertToMoment(timestamp));
   const timeRemaining: string = a.to(b);
@@ -62,9 +62,13 @@ export function ActivityCard({
 
   return (
     <div className={styles.container}>
-      <img className={styles.photo} src={photo} alt="profile" />
-      <h3 className={styles.title}>{title}</h3>
-      <h6 className={styles.remaining}>{timeRemaining}</h6>
+      <div className={styles.header}>
+        <img className={styles.photo} src={photo} alt="profile" />
+        <p className={styles.titleWrapper}>
+          <h3 className={styles.title}>{title}</h3>
+          <h6 className={styles.remaining}>{timeRemaining}</h6>
+        </p>
+      </div>
       <div className={styles.descriptionWrapper}>
         <div className={styles.description}>
           {description.length > 200

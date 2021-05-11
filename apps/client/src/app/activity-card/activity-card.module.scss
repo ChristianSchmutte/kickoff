@@ -1,177 +1,183 @@
 .container {
-  position: absolute;
-  width: 325px;
-  height: 316px;
-  left: 25px;
-  top: 22px;
-  background: #ffffff;
-  box-shadow: 0px 3px 3px 2px rgba(101, 101, 101, 0.26);
-  .title {
-    position: absolute;
+  display: flex;
+  flex-direction: column;
+  .header {
     display: flex;
-    align-items: center;
-    text-align: center;
-    width: 85px;
-    height: 21px;
-    left: 120px;
-    top: 12px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    letter-spacing: -0.02em;
-    color: #000000;
-  }
-  .photo {
-    position: absolute;
-    width: 49px;
-    height: 49px;
-    left: 9px;
-    top: 9px;
-    border-radius: 50%;
-  }
-  .descriptionWrapper {
-    position: absolute;
-    width: 296px;
-    height: 122px;
-    left: 15px;
-    top: 74px;
-
-    background: #f7f7f7;
-    /* Description Drop Shadow Style */
-    box-shadow: 0px 2px 1px 1px rgba(101, 101, 101, 0.26);
-
-    display: flex;
-    align-items: center;
-    .description {
-      /* Text */
-      padding: 1rem;
-
-      width: 285px;
-      height: 104px;
+    flex-direction: row;
+    justify-content: space-between;
+    p {
+      margin: 0;
+    }
+    .photo {
+      width: 49px;
+      height: 49px;
+      border-radius: 50%;
+    }
+    .remaining {
+      width: 64px;
+      height: 16px;
 
       font-family: Roboto;
       font-style: normal;
-      font-weight: normal;
-      font-size: 12px;
-      line-height: 14px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
       letter-spacing: -0.02em;
 
-      color: #000000;
-    }
-  }
-  .remaining {
-    position: absolute;
-    width: 64px;
-    height: 16px;
-    left: 120px;
-    top: 17px;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    letter-spacing: -0.02em;
-
-    color: #00b5b2;
-  }
-  .startToFinish {
-    position: absolute;
-    width: 166px;
-    height: 14px;
-    left: 13px;
-    top: 240px;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 14px;
-
-    display: flex;
-    align-items: center;
-    letter-spacing: -0.02em;
-
-    color: #00b5b2;
-  }
-  .location {
-    position: absolute;
-    width: 106px;
-    height: 16px;
-    left: 13px;
-    top: 211px;
-
-    /* H6 14pt Medium Roboto */
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
-    letter-spacing: -0.02em;
-
-    color: #000000;
-  }
-  .join {
-    position: absolute;
-    left: 2.46%;
-    right: 66.46%;
-    top: 84.81%;
-    bottom: 3.48%;
-
-    background: #6c60ff;
-    mix-blend-mode: normal;
-    /* Drop Shadow Style */
-
-    box-shadow: 0px 3px 3px 2px rgba(101, 101, 101, 0.26);
-    border-radius: 5px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 15px;
-    line-height: 18px;
-    display: flex;
-    width: 5rem;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    letter-spacing: -0.02em;
-
-    color: #ffffff;
-  }
-  .participants {
-    display: flex;
-    align-content: center;
-    position: absolute;
-    max-width: 80px;
-    max-height: 50px;
-    top: 258px;
-    right: 0;
-    .profilePicWrapper {
-      overflow: hidden;
-      .profilePic {
-        display: flex;
-        position: absolute;
-        max-width: 49px;
-        max-height: 49px;
-        border-radius: 50%;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: #6c60ff;
-      }
-    }
-    .profilePicWrapper:last-child,
-    .profilePicWrapper:hover {
-      overflow: visible;
+      color: #00b5b2;
     }
   }
 }
+
+// .container {
+//   // position: absolute;
+//   display: flex;
+//   flex-direction: column;
+//   width: 325px;
+//   height: 316px;
+//   // left: 25px;
+//   // top: 22px;
+//   background: #ffffff;
+//   box-shadow: 0px 3px 3px 2px rgba(101, 101, 101, 0.26);
+//   .title {
+//     position: absolute;
+//     display: flex;
+//     align-items: center;
+//     text-align: center;
+//     width: 85px;
+//     height: 21px;
+//     // left: 120px;
+//     // top: 12px;
+//     font-family: Roboto;
+//     font-style: normal;
+//     font-weight: 500;
+//     font-size: 18px;
+//     line-height: 21px;
+//     letter-spacing: -0.02em;
+//     color: #000000;
+//   }
+//   .descriptionWrapper {
+//     // position: absolute;
+//     width: 296px;
+//     height: 122px;
+//     // left: 15px;
+//     // top: 74px;
+
+//     background: #f7f7f7;
+//     /* Description Drop Shadow Style */
+//     box-shadow: 0px 2px 1px 1px rgba(101, 101, 101, 0.26);
+
+//     display: flex;
+//     align-items: center;
+//     .description {
+//       /* Text */
+//       padding: 1rem;
+
+//       width: 285px;
+//       height: 104px;
+
+//       font-family: Roboto;
+//       font-style: normal;
+//       font-weight: normal;
+//       font-size: 12px;
+//       line-height: 14px;
+//       letter-spacing: -0.02em;
+
+//       color: #000000;
+//     }
+//   }
+//   .startToFinish {
+//     position: absolute;
+//     width: 166px;
+//     height: 14px;
+//     left: 13px;
+//     top: 240px;
+
+//     font-family: Roboto;
+//     font-style: normal;
+//     font-weight: 500;
+//     font-size: 12px;
+//     line-height: 14px;
+
+//     display: flex;
+//     align-items: center;
+//     letter-spacing: -0.02em;
+
+//     color: #00b5b2;
+//   }
+//   .location {
+//     position: absolute;
+//     width: 106px;
+//     height: 16px;
+//     left: 13px;
+//     top: 211px;
+
+//     /* H6 14pt Medium Roboto */
+
+//     font-family: Roboto;
+//     font-style: normal;
+//     font-weight: 500;
+//     font-size: 14px;
+//     line-height: 16px;
+//     display: flex;
+//     align-items: center;
+//     letter-spacing: -0.02em;
+
+//     color: #000000;
+//   }
+//   .join {
+//     position: absolute;
+//     left: 2.46%;
+//     right: 66.46%;
+//     top: 84.81%;
+//     bottom: 3.48%;
+
+//     background: #6c60ff;
+//     mix-blend-mode: normal;
+//     /* Drop Shadow Style */
+
+//     box-shadow: 0px 3px 3px 2px rgba(101, 101, 101, 0.26);
+//     border-radius: 5px;
+//     font-style: normal;
+//     font-weight: bold;
+//     font-size: 15px;
+//     line-height: 18px;
+//     display: flex;
+//     width: 5rem;
+//     justify-content: center;
+//     align-items: center;
+//     text-align: center;
+//     letter-spacing: -0.02em;
+
+//     color: #ffffff;
+//   }
+//   .participants {
+//     display: flex;
+//     align-content: center;
+//     position: absolute;
+//     max-width: 80px;
+//     max-height: 50px;
+//     top: 258px;
+//     right: 0;
+//     .profilePicWrapper {
+//       overflow: hidden;
+//       .profilePic {
+//         display: flex;
+//         position: absolute;
+//         max-width: 49px;
+//         max-height: 49px;
+//         border-radius: 50%;
+
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: center;
+//         align-items: center;
+//         background-color: #6c60ff;
+//       }
+//     }
+//     .profilePicWrapper:last-child,
+//     .profilePicWrapper:hover {
+//       overflow: visible;
+//     }
+//   }
+// }
