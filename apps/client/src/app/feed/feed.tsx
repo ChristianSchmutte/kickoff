@@ -9,7 +9,8 @@ export interface FeedProps {}
 interface Activity {
   title: string;
   description: string;
-  timestamp: number;
+  startTimestamp: number;
+  endTimestamp: number;
   location: string;
 }
 
