@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
+  "ignorePatterns": ["**/*, **.prismanx"],
   "plugins": ["@nrwl/nx"],
   "overrides": [
     {
