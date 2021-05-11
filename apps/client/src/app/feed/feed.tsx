@@ -21,7 +21,7 @@ const mockActivities: Activity[] = [
     startTimestamp: new Date(2021, 4, 12, 11).getTime(),
     endTimestamp: new Date(2021, 4, 13, 13).getTime(),
     location: 'Middle of nowhere'
-  },
+  }
 ]
 
 export function Feed(props: FeedProps) {
