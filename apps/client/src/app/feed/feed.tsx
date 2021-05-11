@@ -16,20 +16,7 @@ interface Activity {
 
 const mockActivities: Activity[] = [
   {
-    title: 'Soccer here',
-    description: 'Stuff about soccer',
-    timestamp: Date.now(),
-    location: 'Middle of nowhere'
-  },
-  {
-    title: 'Cricket here',
-    description: 'Stuff about cricket',
-    timestamp: Date.now(),
-    location: 'Middle of nowhere'
-    
-  },
-  {
-    title: 'Bball here',
+    title: 'Basketball',
     description: 'Stuff about bball',
     startTimestamp: new Date(2021, 4, 12, 11).getTime(),
     endTimestamp: new Date(2021, 4, 13, 13).getTime(),
