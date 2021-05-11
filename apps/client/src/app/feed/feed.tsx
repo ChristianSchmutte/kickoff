@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import ActivityCard from '../activity-card/activity-card';
-<<<<<<< HEAD
 import NavBar from '../nav-bar/nav-bar';
 import styles from './feed.module.scss';
-=======
 import { v4 as uuidv4 } from 'uuid';
->>>>>>> 7d8790f0646d6bc1bda36c807643399236f25177
 
 import './feed.module.scss';
 
@@ -27,24 +24,6 @@ interface Activity {
 
 const mockActivities: Activity[] = [
   {
-<<<<<<< HEAD
-    id: 12,
-    title: 'Basketball',
-    description: 'Stuff about bball',
-    startTimestamp: new Date(2021, 4, 12, 11).getTime(),
-    endTimestamp: new Date(2021, 4, 13, 13).getTime(),
-    location: 'Middle of nowhere',
-  },
-  {
-    id: 8,
-    title: 'Cricket',
-    description: 'Stuff about cricket',
-    startTimestamp: new Date(2021, 4, 15, 12).getTime(),
-    endTimestamp: new Date(2021, 4, 16, 14).getTime(),
-    location: 'somehwere',
-  },
-];
-=======
     title: 'Football',
     description: 'Saturday Night Football',
     startTimestamp: new Date(2021, 7, 12, 11).getTime(),
@@ -81,16 +60,10 @@ function formatTimeRemaingInMilliseconds(timestamp: number): number {
   console.log('timeremainingms:', timeRemainingInMilliseconds);
   return timeRemainingInMilliseconds;
 }
->>>>>>> 7d8790f0646d6bc1bda36c807643399236f25177
 
 export function Feed(props: FeedProps) {
   const [activities, setActivities] = useState<Activity[]>(mockActivities);
 
-<<<<<<< HEAD
-  const activityCards: JSX.Element[] = activities.map((activity) => (
-    <ActivityCard
-      className={styles.activity}
-=======
   /* List cards
      profile image -> string (url)
      time attached -> timestamp
@@ -119,13 +92,11 @@ export function Feed(props: FeedProps) {
     <ActivityCard
       id={activity.id}
       key={activity.id}
->>>>>>> 7d8790f0646d6bc1bda36c807643399236f25177
       title={activity.title}
       description={activity.description}
       startTimestamp={activity.startTimestamp}
       endTimestamp={activity.endTimestamp}
       location={activity.location}
-<<<<<<< HEAD
       key={activity.id}
     />
   ));
@@ -135,11 +106,6 @@ export function Feed(props: FeedProps) {
       {activityCards}
     </div>
   );
-=======
-    />
-  ));
-  return <div>{activityCards}</div>;
->>>>>>> 7d8790f0646d6bc1bda36c807643399236f25177
 }
 
 export default Feed;
