@@ -39,8 +39,10 @@ export function Feed(props: FeedProps) {
     <ActivityCard 
       title={activity.title}
       description={activity.description}
-      timestamp={activity.timestamp}
+      startTimestamp={activity.startTimestamp}
+      endTimestamp={activity.endTimestamp}
       location={activity.location}
+      key="1"
     />
   ));
   return (
