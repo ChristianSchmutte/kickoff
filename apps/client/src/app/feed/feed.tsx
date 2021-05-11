@@ -27,14 +27,6 @@ const mockActivities: Activity[] = [
 export function Feed(props: FeedProps) {
   const [activities, setActivities] = useState<Activity[]>(mockActivities);
 
-  /* List cards
-     profile image -> string (url)
-     time attached -> timestamp
-     description -> string
-     button with a click handler pass id for clickhandler
-     duration
-    participants */
-
   const activityCards: JSX.Element[] = activities.map((activity) => (
     <ActivityCard 
       title={activity.title}
