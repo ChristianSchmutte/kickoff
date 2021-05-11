@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Moment from 'moment';
 import styles from './activity-card.module.scss';
 import user from '../../assets/user.svg';
@@ -13,14 +13,6 @@ export interface ActivityCardProps {
   location: string;
 }
 
-// const mockActivityCard: ActivityCardProps = {
-//   title: 'title',
-//   description: 'description',
-//   startTimestamp: Date.now(),
-//   endTimestamp: new Date(2022, 11, 24, 10, 33, 30, 0).getTime(),
-//   location: 'string'
-// }
-
 function convertToMoment(timestamp: number): number[] {
   const getFullYear = new Date(timestamp).getFullYear();
   const getMonth = new Date(timestamp).getMonth();
@@ -34,7 +26,6 @@ function formatTimeRemaing(timestamp: number): string {
       'YYYY, MMM Do h:mm a'
     ),
   });
-
   const a: Moment.Moment = Moment(convertToMoment(Date.now()));
   const b: Moment.Moment = Moment(convertToMoment(timestamp));
   const timeRemaining: string = a.to(b);
@@ -60,21 +51,34 @@ export function ActivityCard({
     endTimestamp
   );
 
+  // profilePics: An array of profile pictures for every participant
+  const [profilePics, setProfilePics] = useState([]);
+
+  const renderProfilePics = profilePics.map(({ img, id }) => (
+    <div className={styles.profilePicWrapper}>
+      <img className={styles.profilePic} key={id} src={img} alt="profile" />
+    </div>
+  ));
+
   return (
     <div className={styles.container}>
       <img className={styles.photo} src={photo} alt="profile" />
       <h3 className={styles.title}>{title}</h3>
       <h6 className={styles.remaining}>{timeRemaining}</h6>
-      <div className={styles.description}>
-        <div className={styles.text}>{description}</div>
+      <div className={styles.descriptionWrapper}>
+        <div className={styles.description}>
+          {description.length > 200
+            ? 'Number of characters exceeds limit of 200!'
+            : description}
+        </div>
       </div>
       <p className={styles.location}>{location}</p>
       <div className={styles.startToFinish}>{fromStartToFinish}</div>
       <button type="button" className={styles.join}>
         <span>Join</span>
       </button>
-      <div className={styles.participants}>
-        <img src={user} alt="user icon" />
+      <div className={styles.particpants}>
+        {renderProfilePics ? renderProfilePics : undefined}
       </div>
     </div>
   );
