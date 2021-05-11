@@ -21,6 +21,8 @@ model Activity {
   locationId              Int
   sport                   Sport   @relation(fields: [sportId], references: [id])
   sportId                 Int
+  timestamp               BigInt
+  ends                    BigInt
 }
 
 model User {
