@@ -1,24 +1,12 @@
 .container {
-  /* Navigation Bar */
-  // display: flex;
-  // flex-direction: row;
-  // justify-content: space-evenly;
-  // align-items: center;
-  // position: absolute;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   width: 100vw;
   height: 3.2rem;
-  // left: 0px;
-  // top: 0px;
-
-  // /* Rectangle 5 */
-
-  // position: absolute;
-  // left: 0;
-  // top: 0;
   background-color: #6b5fff;
-
-  display: flex;
-  flex-direction: row;
-  background-color: #3023c4;
-  justify-content: left;
+  img {
+    justify-self: center;
+    width: 5rem;
+    height: 3rem;
+  }
 }
