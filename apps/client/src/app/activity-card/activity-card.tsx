@@ -64,28 +64,30 @@ export function ActivityCard({
   ));
 
   return (
-    <div className={styles.container}>
+    <div className={styles.cardContainer}>
       <div className={styles.header}>
         <img className={styles.photo} src={photo} alt="profile" />
         <p className={styles.titleWrapper}>
           <h3 className={styles.title}>{title}</h3>
-          <h6 className={styles.remaining}>{timeRemaining}</h6>
+          <h6 className={styles.timeRemaining}>{timeRemaining}</h6>
         </p>
       </div>
-      <div className={styles.descriptionWrapper}>
-        <div className={styles.description}>
-          {description.length > 200
-            ? 'Number of characters exceeds the limit of 200!'
-            : description}
-        </div>
+      <div className={styles.description}>
+        {description.length > 200
+          ? 'Number of characters exceeds the limit of 200!'
+          : description}
       </div>
-      <p className={styles.location}>{location}</p>
-      <div className={styles.startToFinish}>{fromStartToFinish}</div>
-      <button type="button" className={styles.join}>
-        <span>Join</span>
-      </button>
-      <div className={styles.particpants}>
-        {renderProfilePics ? renderProfilePics : undefined}
+      <div className={styles.details}>
+        <p className={styles.location}>{location}</p>
+        <div className={styles.startToFinish}>{fromStartToFinish}</div>
+      </div>
+      <div className={styles.footer}>
+        <button type="button" className={styles.join}>
+          <span>Join</span>
+        </button>
+        <div className={styles.particpants}>
+          {renderProfilePics ? renderProfilePics : undefined}
+        </div>
       </div>
     </div>
   );
