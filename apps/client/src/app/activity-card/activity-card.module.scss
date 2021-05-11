@@ -1,168 +1,81 @@
-.container {
-  position: relative;
-  width: 325px;
-  height: 316px;
-  left: 25px;
-  top: 22px;
-  background: #ffffff;
+$background-color: #ffffff;
+$buttons: #6c60ff;
+$box-shadow: 0px 3px 3px 2px rgba(101, 101, 101, 0.26);
+$font-style: Roboto;
+$misc-color: #00b5b2;
+
+.cardContainer {
+  * {
+    font-family: $font-style;
+  }
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  background-color: $background-color;
   box-shadow: 0px 3px 3px 2px rgba(101, 101, 101, 0.26);
-  .title {
-    position: absolute;
-    display: flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  .header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: flex-start;
     align-items: center;
-    text-align: center;
-    width: 85px;
-    height: 21px;
-    left: 120px;
-    top: 12px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    letter-spacing: -0.02em;
-    color: #000000;
-  }
-  .photo {
-    position: absolute;
-    width: 49px;
-    height: 49px;
-    left: 9px;
-    top: 9px;
-    border-radius: 50%;
-  }
-  .descriptionWrapper {
-    position: absolute;
-    width: 296px;
-    height: 122px;
-    left: 15px;
-    top: 84px;
-
-    background: #f7f7f7;
-    /* Description Drop Shadow Style */
-
-    box-shadow: 0px 2px 1px 1px rgba(101, 101, 101, 0.26);
-
-    display: flex;
-    align-items: center;
-    .description {
-      /* Text */
-      padding: 1rem;
-
-      width: 285px;
-      height: 104px;
-
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 12px;
-      line-height: 14px;
-      letter-spacing: -0.02em;
-
-      color: #000000;
+    img {
+      margin: 0.56rem;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+    }
+    p {
+      text-align: center;
+      margin: 0;
+      h3 {
+        margin: 0;
+      }
+      h6 {
+        margin-top: 0;
+        color: $misc-color;
+      }
     }
   }
-  .remaining {
-    position: absolute;
-    width: 64px;
-    height: 16px;
-    left: 120px;
-    top: 17px;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    letter-spacing: -0.02em;
-
-    color: #00b5b2;
+  .description {
+    width: 90%;
+    height: 200px;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    background-color: #f6f6f6;
+    box-shadow: 0px 2px 1px 1px rgba(101, 101, 101, 0.26);
+    box-sizing: border-box;
   }
-  .startToFinish {
-    position: absolute;
-    width: 166px;
-    height: 14px;
-    left: 13px;
-    top: 240px;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 14px;
-
+  .details {
     display: flex;
-    align-items: center;
-    letter-spacing: -0.02em;
-
-    color: #00b5b2;
+    flex-direction: column;
+    // margin-top: 1rem;
+    margin-left: 0.56rem;
+    p {
+      margin: 0;
+    }
+    .startToFinish {
+      color: $misc-color;
+    }
   }
-  .location {
-    position: absolute;
-    width: 106px;
-    height: 16px;
-    left: 13px;
-    top: 211px;
-
-    /* H6 14pt Medium Roboto */
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
+  .footer {
     display: flex;
-    align-items: center;
-    letter-spacing: -0.02em;
-
-    color: #000000;
-  }
-  .join {
-    position: absolute;
-    left: 2.46%;
-    right: 66.46%;
-    top: 84.81%;
-    bottom: 3.48%;
-
-    background: #6c60ff;
-    mix-blend-mode: normal;
-    /* Drop Shadow Style */
-
-    box-shadow: 0px 3px 3px 2px rgba(101, 101, 101, 0.26);
-    border-radius: 5px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 15px;
-    line-height: 18px;
-    display: flex;
-    width: 5rem;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    letter-spacing: -0.02em;
-
-    color: #ffffff;
-  }
-  .participants {
-    display: flex;
-    align-content: center;
-    position: absolute;
-    width: 65px;
-    height: 50px;
-    left: 251px;
-    img {
-      position: absolute;
-      width: 49px;
-      height: 49px;
-      top: 258px;
-      right: 0;
-      border-radius: 50%;
-      /* Buttons */
-
-      background-color: #6c60ff;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-left: 0.56rem;
+    button {
+      background-color: $buttons;
+      box-shadow: $box-shadow;
+      border-radius: 5px;
+      width: 5rem;
+      height: 2rem;
+      margin-bottom: 1rem;
+      span {
+        font-size: medium;
+        color: #ffffff;
+      }
     }
   }
 }

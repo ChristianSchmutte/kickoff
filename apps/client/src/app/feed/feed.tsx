@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import ActivityCard from '../activity-card/activity-card';
+import NavBar from '../nav-bar/nav-bar';
+import styles from './feed.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 
 import './feed.module.scss';
@@ -8,6 +10,7 @@ import './feed.module.scss';
 export interface FeedProps {}
 
 interface Activity {
+  id: number;
   title: string;
   description: string;
   startTimestamp: number;
@@ -94,9 +97,15 @@ export function Feed(props: FeedProps) {
       startTimestamp={activity.startTimestamp}
       endTimestamp={activity.endTimestamp}
       location={activity.location}
+      key={activity.id}
     />
   ));
-  return <div>{activityCards}</div>;
+  return (
+    <div className={styles.container}>
+      <NavBar />
+      {activityCards}
+    </div>
+  );
 }
 
 export default Feed;
