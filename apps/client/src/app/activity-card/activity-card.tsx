@@ -13,7 +13,7 @@ export interface ActivityCardProps {
   location: string;
 }
 
-function convertToMoment(timestamp: number): number[] {
+function convertToMoment(timestamp: number): [number, number, number] {
   const getFullYear = new Date(timestamp).getFullYear();
   const getMonth = new Date(timestamp).getMonth();
   const getDay = new Date(timestamp).getDate();
