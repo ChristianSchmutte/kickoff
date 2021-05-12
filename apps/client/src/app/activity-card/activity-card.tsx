@@ -3,6 +3,7 @@ import Moment from 'moment';
 import styles from './activity-card.module.scss';
 import user from '../../assets/user.svg';
 import photo from '../../assets/photo.jpeg';
+import useSWR from 'swr';
 
 /* eslint-disable-next-line */
 export interface ActivityCardProps {
@@ -55,7 +56,7 @@ export function ActivityCard({
   );
 
   // profilePics: An array of profile pictures for every participant
-  const [profilePics, setProfilePics] = useState([]);
+  const { data: profilePics, error } = useSWR([]);
 
   const renderProfilePics = profilePics.map(({ img, id }) => (
     <div className={styles.profilePicWrapper}>
