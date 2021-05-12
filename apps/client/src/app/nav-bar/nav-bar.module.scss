@@ -2,6 +2,7 @@
   display: grid;
   align-items: center;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: 'start leftmid rightmid end';
   width: 100vw;
   height: 3.2rem;
   background-color: #6b5fff;
@@ -9,5 +10,8 @@
     justify-self: center;
     width: 5rem;
     height: 2.5rem;
+  }
+  .createEventButton {
+    grid-area: end;
   }
 }

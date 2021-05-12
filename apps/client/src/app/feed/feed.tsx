@@ -10,7 +10,6 @@ import './feed.module.scss';
 export interface FeedProps {}
 
 interface Activity {
-  id: number;
   title: string;
   description: string;
   startTimestamp: number;
@@ -35,7 +34,7 @@ const mockActivities: Activity[] = [
     description: 'description...',
     startTimestamp: new Date(2021, 6, 12, 11).getTime(),
     endTimestamp: new Date(2021, 6, 13, 13).getTime(),
-    location: "Da'an Forest Park",
+    location: `Da'an Forest Park`,
     id: uuidv4(),
   },
 
@@ -58,14 +57,6 @@ function formatTimeRemaingInMilliseconds(timestamp: number): number {
 
 export function Feed(props: FeedProps) {
   const [activities, setActivities] = useState<Activity[]>(mockActivities);
-
-  /* List cards
-     profile image -> string (url)
-     time attached -> timestamp
-     description -> string
-     button with a click handler pass id for clickhandler
-     duration
-    participants */
 
   const sortedActivities = activities.sort(function (a, b) {
     if (
@@ -90,12 +81,11 @@ export function Feed(props: FeedProps) {
       startTimestamp={activity.startTimestamp}
       endTimestamp={activity.endTimestamp}
       location={activity.location}
-      key={activity.id}
     />
   ));
   return (
     <div className={styles.container}>
-      <NavBar />
+      <NavBar clickHandler={() => console.log('clicked')} />
       {activityCards}
     </div>
   );
