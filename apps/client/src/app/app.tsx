@@ -1,13 +1,11 @@
 import styles from './app.module.scss';
 import Feed from './feed/feed';
-
-import { ReactComponent as Logo } from './logo.svg';
-import star from './star.svg';
+import firebase from 'firebase/app';
 
 export function App() {
-  return (
-    <Feed />
-  );
+  const firebaseApp = firebase.apps[0];
+  console.log(JSON.stringify(firebaseApp.options, null, 2));
+  return <Feed />;
 }
 
 export default App;
