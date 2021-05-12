@@ -1,16 +1,31 @@
-import React from 'react';
-
-import './auth-content.module.scss';
+import React, { useContext, useEffect, useState } from 'react';
+import './auth-provider.module.scss';
+import auth from './firebase';
+import firebase from 'firebase/app';
 
 /* eslint-disable-next-line */
-export interface AuthContentProps {}
+export interface AuthProviderProps {}
+export const AuthContext = React.createContext<firebase.User | null>(null);
+export const useAuth = () => useContext(AuthContext);
 
-export function AuthContent(props: AuthContentProps) {
-  return (
-    <div>
-      <h1>Welcome to AuthContent!</h1>
-    </div>
-  );
-}
+export const AuthProvider: React.FC = ({ children }) => {
+  const [user, setUser] = useState<firebase.User | null>(null);
 
-export default AuthContent;
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+      setUser(firebaseUser);
+    });
+    return unsubscribe;
+  }, []);
+
+  const signUp = (
+    email: string,
+    password: string
+  ): Promise<firebase.auth.UserCredential> => {
+    return auth.createUserWithEmailAndPassword(email, password);
+  };
+
+  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+};
+
+export default AuthProvider;
