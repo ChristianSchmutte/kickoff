@@ -36,7 +36,7 @@ const mockActivities: Activity[] = [
     description: 'description...',
     startTimestamp: new Date(2021, 6, 12, 11).getTime(),
     endTimestamp: new Date(2021, 6, 13, 13).getTime(),
-    location: "Da'an Forest Park",
+    location: `Da'an Forest Park`,
     id: uuidv4(),
   },
 
