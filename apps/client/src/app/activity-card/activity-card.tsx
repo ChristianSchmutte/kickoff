@@ -3,6 +3,7 @@ import Moment from 'moment';
 import styles from './activity-card.module.scss';
 import user from '../../assets/user.svg';
 import photo from '../../assets/photo.jpeg';
+// import useSWR from 'swr';
 
 /* eslint-disable-next-line */
 export interface ActivityCardProps {
@@ -22,11 +23,6 @@ function convertToMoment(timestamp: number): [number, number, number] {
 }
 
 function formatTimeRemaing(timestamp: number): string {
-  // console.log({
-  //   'starting time': Moment(convertToMoment(timestamp)).format(
-  //     'YYYY, MMM Do h:mm a'
-  //   ),
-  // });
   const a: Moment.Moment = Moment(convertToMoment(Date.now()));
   const b: Moment.Moment = Moment(convertToMoment(timestamp));
   const timeRemaining: string = a.to(b);
@@ -48,7 +44,6 @@ export function ActivityCard({
   id,
 }: ActivityCardProps): JSX.Element {
   const timeRemaining: string = formatTimeRemaing(startTimestamp);
-  console.log('key:', id);
   const fromStartToFinish: string = formatFromStartToFinish(
     startTimestamp,
     endTimestamp
