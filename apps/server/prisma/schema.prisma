@@ -8,6 +8,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "darwin"]
 }
 
 model Activity {
@@ -15,22 +16,22 @@ model Activity {
   title                   String
   description             String
   participants            User[]    @relation("user_activity")
-  organizer               User    @relation(fields: [organizerId], references: [id])
+  organizer               User      @relation(fields: [organizerId], references: [id])
   organizerId             Int
-  location                Location @relation(fields: [locationId], references: [id])
+  location                Location  @relation(fields: [locationId], references: [id])
   locationId              Int
-  sport                   Sport   @relation(fields: [sportId], references: [id])
+  sport                   Sport     @relation(fields: [sportId], references: [id])
   sportId                 Int
-  timestamp               BigInt
-  ends                    BigInt
+  timestamp               Int
+  ends                    Int
 }
 
 model User {
   id                      Int         @id @default(autoincrement())
   firstname               String
   lastname                String
-  friends                 User[]      @relation("friends", references: [id])
-  friendsRelation         User[]      @relation("friends", references: [id])
+  friends                 User[]      @relation("user_friends")
+  friendsRelation         User[]      @relation("user_friends")
   activites               Activity[]  @relation("user_activity")
   organizedActivities     Activity[]
 }
