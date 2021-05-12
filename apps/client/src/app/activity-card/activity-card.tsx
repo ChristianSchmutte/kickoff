@@ -23,11 +23,6 @@ function convertToMoment(timestamp: number): [number, number, number] {
 }
 
 function formatTimeRemaing(timestamp: number): string {
-  // console.log({
-  //   'starting time': Moment(convertToMoment(timestamp)).format(
-  //     'YYYY, MMM Do h:mm a'
-  //   ),
-  // });
   const a: Moment.Moment = Moment(convertToMoment(Date.now()));
   const b: Moment.Moment = Moment(convertToMoment(timestamp));
   const timeRemaining: string = a.to(b);
@@ -49,7 +44,6 @@ export function ActivityCard({
   id,
 }: ActivityCardProps): JSX.Element {
   const timeRemaining: string = formatTimeRemaing(startTimestamp);
-  console.log('key:', id);
   const fromStartToFinish: string = formatFromStartToFinish(
     startTimestamp,
     endTimestamp
