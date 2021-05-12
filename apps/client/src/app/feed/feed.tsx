@@ -10,13 +10,11 @@ import './feed.module.scss';
 export interface FeedProps {}
 
 interface Activity {
-  id: number;
   title: string;
   description: string;
   startTimestamp: number;
   endTimestamp: number;
   location: string;
-  // timeRemainingMS: number;
   id: string;
 }
 
