@@ -63,14 +63,6 @@ function formatTimeRemaingInMilliseconds(timestamp: number): number {
 export function Feed(props: FeedProps) {
   const [activities, setActivities] = useState<Activity[]>(mockActivities);
 
-  /* List cards
-     profile image -> string (url)
-     time attached -> timestamp
-     description -> string
-     button with a click handler pass id for clickhandler
-     duration
-    participants */
-
   const sortedActivities = activities.sort(function (a, b) {
     if (
       formatTimeRemaingInMilliseconds(a.startTimestamp) >
@@ -100,7 +92,7 @@ export function Feed(props: FeedProps) {
   ));
   return (
     <div className={styles.container}>
-      <NavBar />
+      <NavBar clickHandler={() => console.log('clicked')} />
       {activityCards}
     </div>
   );
