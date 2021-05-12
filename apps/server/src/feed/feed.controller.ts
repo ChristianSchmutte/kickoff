@@ -1,5 +1,5 @@
+import { Activity } from '.prisma/client';
 import { Controller, Get, Param, ParseIntPipe, Patch, Query } from '@nestjs/common';
-import { Activity } from './activity.interface';
 import { FeedService } from './feed.service';
 
 
@@ -21,11 +21,11 @@ export class FeedController {
   }
 
   @Patch()
-  updateActivityList(
+  addUserToActivity(
     @Query('activityId', ParseIntPipe) activityId: number,
     // TODO: seperate into auth module
     @Query('userId', ParseIntPipe) userId: number,
   ) {
-    return this.feedService.updateActivityList(activityId, userId);
+    return this.feedService.addUserToActivity(activityId, userId);
   }
 }
