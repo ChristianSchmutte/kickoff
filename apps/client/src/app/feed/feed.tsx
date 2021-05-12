@@ -19,8 +19,6 @@ interface Activity {
   id: string;
 }
 
-// console.log('uuidv4:', uuidv4());
-
 const mockActivities: Activity[] = [
   {
     title: 'Football',
@@ -50,13 +48,10 @@ const mockActivities: Activity[] = [
   },
 ];
 
-console.log('mockActivities:', mockActivities[0].id);
-
 function formatTimeRemaingInMilliseconds(timestamp: number): number {
   const a: number = new Date().getTime();
   const b: number = timestamp;
   const timeRemainingInMilliseconds: number = b - a;
-  console.log('timeremainingms:', timeRemainingInMilliseconds);
   return timeRemainingInMilliseconds;
 }
 
@@ -84,8 +79,6 @@ export function Feed(props: FeedProps) {
       return -1;
     return 0;
   });
-
-  console.log('sorted:', sortedActivities);
 
   const activityCards: JSX.Element[] = sortedActivities.map((activity) => (
     <ActivityCard
