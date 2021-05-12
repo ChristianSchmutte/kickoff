@@ -10,7 +10,6 @@ import './feed.module.scss';
 export interface FeedProps {}
 
 interface Activity {
-  id: number;
   title: string;
   description: string;
   startTimestamp: number;
@@ -97,7 +96,6 @@ export function Feed(props: FeedProps) {
       startTimestamp={activity.startTimestamp}
       endTimestamp={activity.endTimestamp}
       location={activity.location}
-      key={activity.id}
     />
   ));
   return (
