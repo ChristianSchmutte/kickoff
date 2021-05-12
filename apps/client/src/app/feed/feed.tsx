@@ -15,7 +15,6 @@ interface Activity {
   startTimestamp: number;
   endTimestamp: number;
   location: string;
-  // timeRemainingMS: number;
   id: string;
 }
 
