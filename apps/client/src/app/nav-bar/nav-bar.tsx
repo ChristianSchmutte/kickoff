@@ -11,11 +11,11 @@ export interface NavBarProps {
 export function NavBar({ clickHandler }) {
   return (
     <div className={styles.container}>
-      <img src={home} alt="home icon" />
+      <img src={home} alt='home icon' />
       <img
         className={styles.createEventButton}
         src={createIcon}
-        alt="create event icon"
+        alt='create event icon'
         onClick={() => clickHandler()}
       />
     </div>
