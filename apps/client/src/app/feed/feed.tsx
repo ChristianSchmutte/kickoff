@@ -34,19 +34,19 @@ const mockActivities: Activity[] = [
 
   {
     title: 'Basketball',
-    description: 'Stuff about bball',
+    description: 'description...',
     startTimestamp: new Date(2021, 6, 12, 11).getTime(),
     endTimestamp: new Date(2021, 6, 13, 13).getTime(),
-    location: 'Middle of nowhere',
+    location: "Da'an Forest Park",
     id: uuidv4(),
   },
 
   {
     title: 'Cricket',
-    description: 'Stuff about bball',
+    description: 'description...',
     startTimestamp: new Date(2021, 6, 6, 11).getTime(),
     endTimestamp: new Date(2021, 6, 7, 13).getTime(),
-    location: 'Middle of nowhere',
+    location: 'Coffin Cricket Ink',
     id: uuidv4(),
   },
 ];
