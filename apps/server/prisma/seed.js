@@ -1,14 +1,9 @@
-import * as Prisma from '@prisma/client'
+import Prisma from '@prisma/client'
 const { PrismaClient } = Prisma
 const prisma = new PrismaClient();
 
 async function main() {
-  const user = await prisma.user.create({
-    data: {
-      firstname: 'John',
-      lastname: 'Doe',
-    },
-  });
+  
   const sport = await prisma.sport.create({ data: { title: 'Basketball' } });
   const location = await prisma.location.create({
     data: {
@@ -18,47 +13,11 @@ async function main() {
     }
   });
 
-  await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
+      uid: 'tsGQgVWIL7bPZDBGnCodtU8ccmA3',
       firstname: 'Lenny',
       lastname: 'Leonard',
-    },
-  });
-
-  await prisma.user.create({
-    data: {
-      firstname: 'Carl',
-      lastname: 'Carlson',
-    },
-  });
-  await prisma.user.create({
-    data: {
-      firstname: 'Barney',
-      lastname: 'Gumbles',
-    },
-  });
-  await prisma.user.create({
-    data: {
-      firstname: 'Kent',
-      lastname: 'Brockman',
-    },
-  });
-  await prisma.user.create({
-    data: {
-      firstname: 'Moe',
-      lastname: 'Szyslak',
-    },
-  });
-  await prisma.user.create({
-    data: {
-      firstname: 'Montgomery',
-      lastname: 'Burns',
-    },
-  });
-  await prisma.user.create({
-    data: {
-      firstname: 'Seymour',
-      lastname: 'Skinner',
     },
   });
   await prisma.activity.createMany({

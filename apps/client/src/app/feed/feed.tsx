@@ -15,11 +15,8 @@ interface Activity {
   startTimestamp: number;
   endTimestamp: number;
   location: string;
-  // timeRemainingMS: number;
   id: string;
 }
-
-// console.log('uuidv4:', uuidv4());
 
 const mockActivities: Activity[] = [
   {
@@ -36,7 +33,7 @@ const mockActivities: Activity[] = [
     description: 'description...',
     startTimestamp: new Date(2021, 6, 12, 11).getTime(),
     endTimestamp: new Date(2021, 6, 13, 13).getTime(),
-    location: "Da'an Forest Park",
+    location: `Da'an Forest Park`,
     id: uuidv4(),
   },
 
@@ -50,26 +47,15 @@ const mockActivities: Activity[] = [
   },
 ];
 
-console.log('mockActivities:', mockActivities[0].id);
-
 function formatTimeRemaingInMilliseconds(timestamp: number): number {
   const a: number = new Date().getTime();
   const b: number = timestamp;
   const timeRemainingInMilliseconds: number = b - a;
-  console.log('timeremainingms:', timeRemainingInMilliseconds);
   return timeRemainingInMilliseconds;
 }
 
 export function Feed(props: FeedProps) {
   const [activities, setActivities] = useState<Activity[]>(mockActivities);
-
-  /* List cards
-     profile image -> string (url)
-     time attached -> timestamp
-     description -> string
-     button with a click handler pass id for clickhandler
-     duration
-    participants */
 
   const sortedActivities = activities.sort(function (a, b) {
     if (
@@ -85,8 +71,6 @@ export function Feed(props: FeedProps) {
     return 0;
   });
 
-  console.log('sorted:', sortedActivities);
-
   const activityCards: JSX.Element[] = sortedActivities.map((activity) => (
     <ActivityCard
       id={activity.id}
@@ -100,7 +84,7 @@ export function Feed(props: FeedProps) {
   ));
   return (
     <div className={styles.container}>
-      <NavBar />
+      <NavBar clickHandler={() => console.log('clicked')} />
       {activityCards}
     </div>
   );
