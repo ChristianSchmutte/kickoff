@@ -4,28 +4,66 @@ import auth from './firebase';
 import firebase from 'firebase/app';
 
 /* eslint-disable-next-line */
-export interface AuthProviderProps {}
-export const AuthContext = React.createContext<firebase.User | null>(null);
-export const useAuth = () => useContext(AuthContext);
+interface Context {
+  user: firebase.User | null;
+  loading: boolean;
+  logout: () => void;
+  signUp: (email: string, password: string) => Promise<firebase.User | null>;
+}
 
-export const AuthProvider: React.FC = ({ children }) => {
+const AuthContext = React.createContext<Context>({
+  user: null,
+  loading: true,
+  logout: () => void {},
+  signUp: () => void {}
+});
+
+const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<firebase.User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
-      setUser(firebaseUser);
+    const cancelAuthListener = auth.onIdTokenChanged((user) => {
+      setUser(user);
+      setLoading(false);
     });
-    return unsubscribe;
+    return () => cancelAuthListener();
   }, []);
 
-  const signUp = (
+  const signUpWithEmailAndPassword = async (
     email: string,
     password: string
-  ): Promise<firebase.auth.UserCredential> => {
-    return auth.createUserWithEmailAndPassword(email, password);
+  ) => {
+    // [START auth_signup_password]
+    try {
+      const userCredential = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      return userCredential.user;
+    } catch (error) {
+      console.log(error);
+    }
+    // [END auth_signup_password]
   };
 
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        logout: () => auth.signOut(),
+        signUp: (
+          email: string,
+          password: string
+        ): Promise<firebase.User | null> =>
+          signUpWithEmailAndPassword(email, password)
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export default AuthProvider;
+const useAuth = () => useContext(AuthContext);
+export { AuthProvider, useAuth };
