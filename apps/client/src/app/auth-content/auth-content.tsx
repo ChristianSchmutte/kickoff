@@ -4,18 +4,30 @@ import auth from './firebase';
 import firebase from 'firebase/app';
 
 /* eslint-disable-next-line */
-export interface AuthProviderProps {}
-export const AuthContext = React.createContext<firebase.User | null>(null);
+interface Context {
+  user: firebase.User | null;
+  loading: boolean;
+  logout: () => void;
+}
+
+const AuthContext = React.createContext<Context>({
+  user: null,
+  loading: true,
+  logout: () => void {}
+});
+
 export const useAuth = () => useContext(AuthContext);
 
-export const AuthProvider: React.FC = ({ children }) => {
+const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<firebase.User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
-      setUser(firebaseUser);
+    const cancelAuthListener = auth.onIdTokenChanged((user) => {
+      setUser(user);
+      setLoading(false);
     });
-    return unsubscribe;
+    return () => cancelAuthListener();
   }, []);
 
   const signUp = (
@@ -25,7 +37,13 @@ export const AuthProvider: React.FC = ({ children }) => {
     return auth.createUserWithEmailAndPassword(email, password);
   };
 
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{ user, loading, logout: () => auth.signOut() }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
