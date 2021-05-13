@@ -8,15 +8,15 @@ interface Context {
   user: firebase.User | null;
   loading: boolean;
   logout: () => void;
+  signUp: (email: string, password: string) => Promise<firebase.User | null>;
 }
 
 const AuthContext = React.createContext<Context>({
   user: null,
   loading: true,
-  logout: () => void {}
+  logout: () => void {},
+  signUp: () => void {}
 });
-
-export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<firebase.User | null>(null);
@@ -30,20 +30,40 @@ const AuthProvider: React.FC = ({ children }) => {
     return () => cancelAuthListener();
   }, []);
 
-  const signUp = (
+  const signUpWithEmailAndPassword = async (
     email: string,
     password: string
-  ): Promise<firebase.auth.UserCredential> => {
-    return auth.createUserWithEmailAndPassword(email, password);
+  ) => {
+    // [START auth_signup_password]
+    try {
+      const userCredential = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      return userCredential.user;
+    } catch (error) {
+      console.log(error);
+    }
+    // [END auth_signup_password]
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, logout: () => auth.signOut() }}
+      value={{
+        user,
+        loading,
+        logout: () => auth.signOut(),
+        signUp: (
+          email: string,
+          password: string
+        ): Promise<firebase.User | null> =>
+          signUpWithEmailAndPassword(email, password)
+      }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export default AuthProvider;
+const useAuth = () => useContext(AuthContext);
+export { AuthProvider, useAuth };
