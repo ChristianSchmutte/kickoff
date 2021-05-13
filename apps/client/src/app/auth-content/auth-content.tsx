@@ -25,18 +25,21 @@ const AuthProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const cancelAuthListener = auth.onIdTokenChanged((user) => {
+    const unlisten = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
     });
-    return () => cancelAuthListener();
+    // unsubscribes when component is unmounted from the tree
+    return () => unlisten();
   }, []);
+
+  // TODO: if loading redirect to loading page
 
   const signUpWithEmailAndPassword = async (
     email: string,
     password: string
   ) => {
-    // [START auth_signup_password]
+    // START auth signup password
     try {
       const userCredential = await auth.createUserWithEmailAndPassword(
         email,
@@ -46,7 +49,7 @@ const AuthProvider: React.FC = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
-    // [END auth_signup_password]
+    // END auth signup password
   };
 
   const signInWithEmailAndPassword = async (
