@@ -1,11 +1,12 @@
 import React from 'react';
-
+import { useAuth } from '../auth-content/auth-content';
 import styles from './login.module.scss';
 
 /* eslint-disable-next-line */
 export interface LoginProps {}
 
 export function Login(props: LoginProps) {
+  const { user, loading, logout } = useAuth();
   return (
     <div className={styles.container}>
       <form id='login-form' action=''>
