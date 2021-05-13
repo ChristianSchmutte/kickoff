@@ -1,15 +1,19 @@
 import styles from './app.module.scss';
 import Feed from './feed/feed';
 import { AuthProvider } from './auth-content/auth-content';
-import { BrowserRoute as Router, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from './private-route/private-route';
 
+// TODO: create PageNotFound Component
 export function App() {
   return (
     <AuthProvider>
-      <Feed />
-      <Router>
-        <div></div>
-      </Router>
+      <Switch>
+        <PrivateRoute exact path='/home' component={Feed} />
+        <Route exact path='/' component={Login} />
+        <Route exact path='/signup' component={SignUp} />
+        <Route component={PageNotFound} />
+      </Switch>
     </AuthProvider>
   );
 }
