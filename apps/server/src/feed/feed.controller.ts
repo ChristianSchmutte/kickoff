@@ -24,6 +24,8 @@ export class FeedController {
   addUserToActivity(
     @Query('activityId', ParseIntPipe) activityId: number,
     // TODO: seperate into auth module with UseGuard and UserPipe
+    // see
+    // https://firebase.google.com/docs/auth/admin
     @Query('userId', ParseIntPipe) userId: number,
   ) {
     return this.feedService.addUserToActivity(activityId, userId);
