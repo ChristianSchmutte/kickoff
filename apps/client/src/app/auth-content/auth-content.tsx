@@ -12,13 +12,7 @@ interface Context {
   signUp: (email: string, password: string) => Promise<firebase.User | null>;
 }
 
-const AuthContext = React.createContext<Context>({
-  user: null,
-  loading: true,
-  login: () => void {},
-  logout: () => void {},
-  signUp: () => void {}
-});
+const AuthContext = React.createContext<Context | null>(null);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
