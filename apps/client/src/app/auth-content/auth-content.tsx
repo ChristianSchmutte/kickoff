@@ -7,6 +7,7 @@ import firebase from 'firebase/app';
 interface Context {
   user: firebase.User | null;
   loading: boolean;
+  login: (email: string, password: string) => Promise<firebase.User | null>;
   logout: () => void;
   signUp: (email: string, password: string) => Promise<firebase.User | null>;
 }
@@ -14,6 +15,7 @@ interface Context {
 const AuthContext = React.createContext<Context>({
   user: null,
   loading: true,
+  login: () => void {},
   logout: () => void {},
   signUp: () => void {}
 });
@@ -47,12 +49,32 @@ const AuthProvider: React.FC = ({ children }) => {
     // [END auth_signup_password]
   };
 
+  const signInWithEmailAndPassword = async (
+    email: string,
+    password: string
+  ) => {
+    try {
+      const userCredential = await auth.signInWithEmailAndPassword(
+        email,
+        password
+      );
+      return userCredential.user;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user,
         loading,
         logout: () => auth.signOut(),
+        login: (
+          email: string,
+          password: string
+        ): Promise<firebase.User | null> =>
+          signInWithEmailAndPassword(email, password),
         signUp: (
           email: string,
           password: string
