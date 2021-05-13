@@ -15,9 +15,9 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
   exact,
   path
 }) => {
-  const { user } = useAuth();
+  const { user: currentUser } = useAuth();
 
-  return user ? (
+  return currentUser ? (
     <Route path={path} exact={exact} component={RouteComponent} />
   ) : (
     <Redirect to='/login' />
