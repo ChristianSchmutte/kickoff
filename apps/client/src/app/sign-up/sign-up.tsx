@@ -8,7 +8,9 @@ export interface SignUpProps {}
 
 export function SignUp(props: SignUpProps) {
   const [currentUser, setCurrentUser] = useState(null);
+
   const { signUp } = useAuth();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
@@ -19,7 +21,9 @@ export function SignUp(props: SignUpProps) {
       console.log(error);
     }
   };
+
   if (currentUser) return <Redirect to='/home' />;
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
