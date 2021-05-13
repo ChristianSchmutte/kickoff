@@ -1,10 +1,6 @@
-$font: Ubuntu Mono;
-.container {
-  .login {
-    font-family: $font;
-  }
-
-  .register {
-    font-family: $font;
+$font-main: Ubuntu Mono;
+.form-container {
+  .btn-login {
+    font-family: $font-main;
   }
 }

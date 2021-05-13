@@ -1,29 +1,48 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { useAuth } from '../auth-content/auth-content';
-import styles from './login.module.scss';
+import './login.module.scss';
 
 /* eslint-disable-next-line */
 export interface LoginProps {}
 
 export function Login(props: LoginProps) {
-  const { user, loading, logout } = useAuth();
+  const { user: currentUser, login } = useAuth();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { email, password } = event.target.elements;
+    try {
+      login(email.value, password.value);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  if (currentUser) return <Redirect to='/home' />;
+
   return (
-    <div className={styles.container}>
-      <form id='login-form' action=''>
-        <label>
-          <input type='text' name='email' />
-        </label>
-        <label>
-          <input type='text' name='password' />
-        </label>
-        <button className={styles.login} type='button'>
-          Login
-        </button>
-        <button className={styles.register} type='button'>
-          Register
-        </button>
-      </form>
-    </div>
+    <form className='form-container' onSubmit={handleSubmit}>
+      <label className='email-label'>
+        Email
+        <input
+          className='email-input'
+          type='email'
+          name='email'
+          placeholder='Email Address'
+        />
+      </label>
+      <label className='password-label'>
+        Password
+        <input
+          className='password-input'
+          type='password'
+          name='password'
+          placeholder='Password'
+        />
+      </label>
+      <button className='btn-login' type='submit'>
+        Login
+      </button>
+    </form>
   );
 }
 
