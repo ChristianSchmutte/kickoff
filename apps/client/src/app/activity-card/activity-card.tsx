@@ -62,10 +62,10 @@ export function ActivityCard({
     <div className={styles.cardContainer}>
       <div className={styles.header}>
         <img className={styles.photo} src={photo} alt="profile" />
-        <p className={styles.titleWrapper}>
+        <div className={styles.titleWrapper}>
           <h3 className={styles.title}>{title}</h3>
           <h6 className={styles.timeRemaining}>{timeRemaining}</h6>
-        </p>
+        </div>
       </div>
       <div className={styles.description}>
         {description.length > 200
