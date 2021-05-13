@@ -21,12 +21,12 @@ const AuthContext = React.createContext<Context>({
 });
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<firebase.User | null>(null);
+  const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const cancelAuthListener = auth.onIdTokenChanged((user) => {
-      setUser(user);
+      setCurrentUser(user);
       setLoading(false);
     });
     return () => cancelAuthListener();
@@ -67,7 +67,7 @@ const AuthProvider: React.FC = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        user,
+        user: currentUser,
         loading,
         logout: () => auth.signOut(),
         login: (
