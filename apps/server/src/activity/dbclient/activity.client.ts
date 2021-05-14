@@ -1,6 +1,6 @@
 import { Activity } from ".prisma/client";
 import { PrismaClient } from ".prisma/client";
-import { InternalServerErrorException, OnModuleDestroy, OnModuleInit } from "@nestjs/common";
+import { InternalServerErrorException, NotFoundException, OnModuleDestroy, OnModuleInit } from "@nestjs/common";
 import { CreateActivityDto } from "../dto/createActivity.dto";
 
 export class ActivityClient extends PrismaClient
