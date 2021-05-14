@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../nav-bar/nav-bar';
 import { v4 as uuidv4 } from 'uuid';
 import createIcon from '../../assets/plus-circle.svg';
 import Feed from '../feed/feed';
-import createActivity from '../create-activity-form/create-activity-form';
-
-import './activities.module.scss';
+import CreateActivityForm from '../create-activity-form/create-activity-form';
+import './activity-context.module.scss';
 
 /* eslint-disable-next-line */
-export interface ActivitiesProps {}
+export interface ActivityContextProps {
+  children: React.ReactNode;
+}
 
 interface Activity {
   title: string;
@@ -25,18 +26,18 @@ interface ActivityContextType {
   activities: Activity[];
   handler: (activity: Activity) => void;
 }
-export const ActivityContext = React.createContext<ActivityContextType | null>(
+export const ActivitiesContext = React.createContext<ActivityContextType | null>(
   null
 );
 
-export function Activities(props: ActivitiesProps) {
+export function ActivityContext(props: ActivityContextProps) {
   const mockActivities: Activity[] = [
     {
       title: 'Football',
       description: 'Saturday Night Football',
       startTimestamp: new Date(2021, 7, 12, 11).getTime(),
       endTimestamp: new Date(2021, 7, 13, 13).getTime(),
-      location: 'War Memorial Park',
+      location: 'War Memorial Paraak',
       id: uuidv4(),
       postcode: 'CV24FR',
       location_url: 'www.google.com'
@@ -73,16 +74,16 @@ export function Activities(props: ActivitiesProps) {
   }
 
   const [activities, setActivities] = useState<Activity[]>(mockActivities);
-  const [selectedActivityId, setSelectedActivityId] = useState();
-  const selectedActivity = activities.find(
-    (activity) => activity.id === selectedActivityId
-  );
+  // const [selectedActivityId, setSelectedActivityId] = useState();
+  // const selectedActivity = activities.find(
+  //   (activity) => activity.id === selectedActivityId
+  // );
 
   const handleActivityPost = (newActivity) => {
-    setActivities([...mockActivities, newActivity]);
+    setActivities([...activities, newActivity]);
   };
 
-  const sortedActivities = activities.sort(function (a, b) {
+  const sortedActivities = [...activities].sort(function (a, b) {
     if (
       formatTimeRemaingInMilliseconds(a.startTimestamp) >
       formatTimeRemaingInMilliseconds(b.startTimestamp)
@@ -96,21 +97,18 @@ export function Activities(props: ActivitiesProps) {
     return 0;
   });
 
+  console.log('SA', sortedActivities);
+
   const contextContent = {
     activities: sortedActivities,
     handler: handleActivityPost
   };
 
-  console.log('cc', contextContent);
-
   return (
-    <div>
-      <ActivityContext.Provider value={contextContent}>
-        <Feed />
-        {/* <createActivity /> */}
-      </ActivityContext.Provider>
-    </div>
+    <ActivitiesContext.Provider value={contextContent}>
+      {props.children}
+    </ActivitiesContext.Provider>
   );
 }
 
-export default Activities;
+export default ActivityContext;

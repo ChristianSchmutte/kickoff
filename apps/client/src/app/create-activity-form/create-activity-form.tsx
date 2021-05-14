@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Activity, handleActivityPost } from '../feed/feed';
+import { ActivitiesContext } from '../activity-context/activity-context';
+import { useHistory } from 'react-router-dom';
 
 import './create-activity-form.module.scss';
 
@@ -8,29 +9,43 @@ import './create-activity-form.module.scss';
 export interface CreateActivityFormProps {}
 
 export function CreateActivityForm(props: CreateActivityFormProps) {
-  const [postedActivity, setPostedActivity] = useState({
+  const { handler } = useContext(ActivitiesContext) || {};
+
+  console.log('ha', handler);
+
+  const initialState = {
     title: '',
     description: '',
-    startTimestamp: '',
-    endTimestamp: '',
+    startTimestamp: new Date().getTime(),
+    endTimestamp: new Date().getTime(),
     location: '',
     id: uuidv4(),
     postcode: '',
     location_url: ''
-  });
+  };
+
+  const [postedActivity, setPostedActivity] = useState(initialState);
+
   const handleChange = (changes) => {
     setPostedActivity({ ...postedActivity, ...changes });
   };
 
+  // setPostedActivity(initialState);
+
+  const history = useHistory();
+  const redirectToFeed = () => {
+    history.push('/home');
+  };
+
   return (
     <>
-      <div>
+      <form>
         <label htmlFor='title'>Activity Title</label>
         <input
           type='text'
           name='title'
           id='title'
-          value=''
+          value={postedActivity.title}
           onChange={(e) => {
             handleChange({ title: e.target.value });
           }}
@@ -40,7 +55,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           type='text'
           name='location'
           id='location'
-          value=''
+          value={postedActivity.location}
           onChange={(e) => {
             handleChange({ location: e.target.value });
           }}
@@ -50,7 +65,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           type='text'
           name='postcode'
           id='postcode'
-          value=''
+          value={postedActivity.postcode}
           onChange={(e) => {
             handleChange({ postcode: e.target.value });
           }}
@@ -60,7 +75,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           type='text'
           name='location_url'
           id='location_url'
-          value=''
+          value={postedActivity.location_url}
           onChange={(e) => {
             handleChange({ location_url: e.target.value });
           }}
@@ -69,7 +84,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
         <textarea
           name='description'
           id='description'
-          value=''
+          value={postedActivity.description}
           onChange={(e) => {
             handleChange({ description: e.target.value });
           }}
@@ -79,7 +94,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           type='datetime'
           name='startTimestamp'
           id='startTimestamp'
-          value=''
+          value={postedActivity.startTimestamp}
           onChange={(e) => {
             handleChange({ startTimestamp: e.target.value });
           }}
@@ -89,7 +104,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           type='datetime'
           name='endTimestamp'
           id='endTimestamp'
-          value=''
+          value={postedActivity.endTimestamp}
           onChange={(e) => {
             handleChange({ endTimestamp: e.target.value });
           }}
@@ -97,10 +112,26 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
         {/* To be changed to map later*/}
         <label htmlFor='map'>Map</label>
         <textarea name='map' id='map' value='' />
-      </div>
+      </form>
       <div>
-        <button onClick={() => handleActivityPost(postedActivity)}>Post</button>
+        <button
+          onClick={() => {
+            if (handler !== null) {
+              handler(postedActivity);
+              setPostedActivity(initialState);
+            }
+          }}
+        >
+          Post
+        </button>
         <button>Delete</button>
+        <button
+          onClick={() => {
+            redirectToFeed();
+          }}
+        >
+          Feed
+        </button>
       </div>
     </>
   );

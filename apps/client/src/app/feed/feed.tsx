@@ -1,34 +1,34 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ActivityCard from '../activity-card/activity-card';
 import NavBar from '../nav-bar/nav-bar';
 import styles from './feed.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import createIcon from '../../assets/plus-circle.svg';
-import { ActivityContext } from '../activities/activities';
+import { ActivitiesContext } from '../activity-context/activity-context';
+import { useHistory } from 'react-router-dom';
 
 import './feed.module.scss';
 
 /* eslint-disable-next-line */
 export interface FeedProps {}
 
-// interface Activity {
-//   title: string;
-//   description: string;
-//   startTimestamp: number;
-//   endTimestamp: number;
-//   location: string;
-//   id: string;
-//   postcode: string;
-//   location_url: string;
-// }
-
 export function Feed(props: FeedProps) {
-  // const { activities, handler } = useContext(ActivityContext);
-  const context = useContext(ActivityContext);
-  const activities = context.activities;
-  console.log('activities', activities);
+  const { activities, handler } = useContext(ActivitiesContext) || {};
+  // console.log('activities', activities);
 
-  const activityCards: JSX.Element[] = activities.map((activity) => (
+  const [refreshedActivities, setRefreshedActivities] = useState(activities);
+
+  useEffect(() => {
+    setRefreshedActivities(refreshedActivities);
+  }, [activities]);
+
+  // For redirection to create activity page
+  const history = useHistory();
+  const redirect = () => {
+    history.push('/create');
+  };
+
+  const activityCards: JSX.Element[] = refreshedActivities?.map((activity) => (
     <ActivityCard
       id={activity.id}
       key={activity.id}
@@ -47,9 +47,9 @@ export function Feed(props: FeedProps) {
         className={styles.createEventButton}
         src={createIcon}
         alt='create event icon'
-        onClick={() =>
-          console.log('👍 clicked...  👉 should open create event form')
-        }
+        onClick={() => {
+          redirect();
+        }}
       />
     </div>
   );
