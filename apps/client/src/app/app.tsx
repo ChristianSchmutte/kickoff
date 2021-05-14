@@ -11,7 +11,7 @@ export function App() {
   return (
     <Router>
       <Switch>
-        <PrivateRoute exact path='/home' component={Feed} />
+        <Route exact path='/home' component={Feed} />
         <Route exact path='/' component={Login} />
         <Route exact path='/signup' component={SignUp} />
         <Route component={PageNotFound} />
