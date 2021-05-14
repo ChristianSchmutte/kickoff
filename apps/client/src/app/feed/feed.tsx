@@ -55,7 +55,7 @@ function formatTimeRemaingInMilliseconds(timestamp: number): number {
   return timeRemainingInMilliseconds;
 }
 
-export function Feed(props: FeedProps) {
+const Feed = (props: FeedProps): JSX.Element => {
   const [activities, setActivities] = useState<Activity[]>(mockActivities);
 
   const sortedActivities = activities.sort(function (a, b) {
@@ -97,6 +97,6 @@ export function Feed(props: FeedProps) {
       />
     </div>
   );
-}
+};
 
 export default Feed;
