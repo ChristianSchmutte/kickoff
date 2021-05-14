@@ -27,6 +27,21 @@ const AuthProvider: React.FC = ({ children }) => {
     return () => unlisten();
   }, []);
 
+  useEffect(() => {
+    auth.currentUser
+      .getIdToken(true)
+      .then((idToken) => {
+        fetch('https://localhost:1234/tokensignin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken })
+        })
+          .then((response) => response.json())
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
+  }, [currentUser]);
   // TODO: if loading redirect to loading page
 
   const signUpWithEmailAndPassword = async (
