@@ -1,6 +1,6 @@
 import { Activity } from ".prisma/client";
 import { PrismaClient } from ".prisma/client";
-import { InternalServerErrorException, NotFoundException, OnModuleDestroy, OnModuleInit } from "@nestjs/common";
+import { BadRequestException, InternalServerErrorException, NotFoundException, OnModuleDestroy, OnModuleInit } from "@nestjs/common";
 import { CreateActivityDto } from "../dto/createActivity.dto";
 
 export class ActivityClient extends PrismaClient
@@ -52,6 +52,9 @@ implements OnModuleInit, OnModuleDestroy {
       return createdActivity;
     } catch (error) {
       // TODO: Error logging
+      if (error.code === 'P2025') {
+        throw new BadRequestException(`${error.meta.cause}`);
+      }
       throw new InternalServerErrorException('Internal server Error');
     }
   }

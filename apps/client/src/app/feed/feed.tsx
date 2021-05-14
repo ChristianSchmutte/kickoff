@@ -3,6 +3,7 @@ import ActivityCard from '../activity-card/activity-card';
 import NavBar from '../nav-bar/nav-bar';
 import styles from './feed.module.scss';
 import { v4 as uuidv4 } from 'uuid';
+import createIcon from '../../assets/plus-circle.svg';
 
 import './feed.module.scss';
 
@@ -100,8 +101,16 @@ export function Feed(props: FeedProps) {
   ));
   return (
     <div className={styles.container}>
-      <NavBar clickHandler={() => console.log('clicked')} />
+      <NavBar />
       {activityCards}
+      <img
+        className={styles.createEventButton}
+        src={createIcon}
+        alt='create event icon'
+        onClick={() =>
+          console.log('👍 clicked...  👉 should open create event form')
+        }
+      />
     </div>
   );
 }
