@@ -28,7 +28,6 @@ model Activity {
 
 model User {
   id                      Int         @id @default(autoincrement())
-  uid                     String      @unique
   firstname               String
   lastname                String
   friends                 User[]      @relation("user_friends")

@@ -1,6 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserClient } from './user.client';
-import * as admin from 'firebase-admin';
 import { CreateUserDto } from './dto/createUser.dto';
 import { User } from '.prisma/client';
 
@@ -16,9 +15,7 @@ export class AuthService {
     createUserDto: CreateUserDto
   ): Promise<User> {
     try {
-      const userRecord = await admin.auth()
-        .getUser(idToken)
-      return this.userClient.createUser(userRecord.uid, createUserDto);
+      return this.userClient.createUser(createUserDto);
     } catch (error) {
       throw new UnauthorizedException('Cannot validate register');
     }
