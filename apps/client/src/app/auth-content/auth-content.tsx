@@ -31,17 +31,18 @@ const AuthProvider: React.FC = ({ children }) => {
     auth.currentUser
       .getIdToken(true)
       .then((idToken) => {
-        fetch('https://localhost:1234/tokensignin', {
+        fetch('https://localhost:3333/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idToken })
+          body: JSON.stringify({ auth: idToken })
         })
           .then((response) => response.json())
-          .then((response) => console.log(response))
+          .then((response) => console.log(response)) // log response (for testing purposes)
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
   }, [currentUser]);
+
   // TODO: if loading redirect to loading page
 
   const signUpWithEmailAndPassword = async (
