@@ -5,7 +5,6 @@ import Login from './login/login';
 import SignUp from './sign-up/sign-up';
 import PageNotFound from './page-not-found/page-not-found';
 
-// TODO: create PageNotFound Component
 export function App() {
   return (
     <Router>
