@@ -6,18 +6,4 @@ import { User } from '.prisma/client';
 @Injectable()
 export class AuthService {
 
-  constructor(
-    private readonly userClient: UserClient,
-  ){}
-
-  async registerUser(
-    idToken: string,
-    createUserDto: CreateUserDto
-  ): Promise<User> {
-    try {
-      return this.userClient.createUser(createUserDto);
-    } catch (error) {
-      throw new UnauthorizedException('Cannot validate register');
-    }
-  }
 }

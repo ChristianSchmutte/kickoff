@@ -22,6 +22,7 @@ How to seed:
 * Make sure PostgreSQL is installed locally, or in a Docker Container ([Local](postgresql.org/download/), [Docker](https://hub.docker.com/_/postgres))
 * install all npm packages 
 * provide a `DATABASE_URL` within a `.env` file for prisma to connect to
+* run `npx prisma generate` to generate the db client.
 * to seed the database run `npx prisma db seed --preview-feature` inside `apps/server`.
 
 ### Inspect your tables

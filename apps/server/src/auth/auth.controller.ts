@@ -7,14 +7,4 @@ import { CreateUserDto } from './dto/createUser.dto';
 @Controller('auth')
 export class AuthController {
 
-  constructor(
-    private readonly authService: AuthService,
-  ) {}
-  @Post('register')
-  async registerUser(
-    @Req() request: Request,
-    @Body(ValidationPipe) createUserDto: CreateUserDto,
-  ): Promise<User> {
-    return this.authService.registerUser(request.headers.authorization, createUserDto);
-  }
 }
