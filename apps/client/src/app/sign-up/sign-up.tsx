@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useAuth } from '../auth-content/auth-content';
 import './sign-up.module.scss';
 
 /* eslint-disable-next-line */
@@ -9,13 +8,11 @@ export interface SignUpProps {}
 export function SignUp(props: SignUpProps) {
   const [currentUser, setCurrentUser] = useState(null);
 
-  const { signUp } = useAuth();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
     try {
-      signUp(email.value, password.value);
+      // TODO: SIGN UP current user
       setCurrentUser(true);
     } catch (error) {
       console.log(error);

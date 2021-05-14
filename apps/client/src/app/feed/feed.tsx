@@ -3,6 +3,7 @@ import ActivityCard from '../activity-card/activity-card';
 import NavBar from '../nav-bar/nav-bar';
 import styles from './feed.module.scss';
 import { v4 as uuidv4 } from 'uuid';
+import createIcon from '../../assets/plus-circle.svg';
 
 import './feed.module.scss';
 
@@ -25,7 +26,7 @@ const mockActivities: Activity[] = [
     startTimestamp: new Date(2021, 7, 12, 11).getTime(),
     endTimestamp: new Date(2021, 7, 13, 13).getTime(),
     location: 'War Memorial Park',
-    id: uuidv4(),
+    id: uuidv4()
   },
 
   {
@@ -34,7 +35,7 @@ const mockActivities: Activity[] = [
     startTimestamp: new Date(2021, 6, 12, 11).getTime(),
     endTimestamp: new Date(2021, 6, 13, 13).getTime(),
     location: `Da'an Forest Park`,
-    id: uuidv4(),
+    id: uuidv4()
   },
 
   {
@@ -43,8 +44,8 @@ const mockActivities: Activity[] = [
     startTimestamp: new Date(2021, 6, 6, 11).getTime(),
     endTimestamp: new Date(2021, 6, 7, 13).getTime(),
     location: 'Coffin Cricket Ink',
-    id: uuidv4(),
-  },
+    id: uuidv4()
+  }
 ];
 
 function formatTimeRemaingInMilliseconds(timestamp: number): number {
@@ -84,8 +85,16 @@ export function Feed(props: FeedProps) {
   ));
   return (
     <div className={styles.container}>
-      <NavBar clickHandler={() => console.log('clicked')} />
+      <NavBar />
       {activityCards}
+      <img
+        className={styles.createEventButton}
+        src={createIcon}
+        alt='create event icon'
+        onClick={() =>
+          console.log('👍 clicked...  👉 should open create event form')
+        }
+      />
     </div>
   );
 }
