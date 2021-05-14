@@ -1,6 +1,6 @@
 import styles from './app.module.scss';
-import Feed from './feed/feed';
 import { Router, Route, Switch } from 'react-router-dom';
+import Feed from './feed/feed';
 import Login from './login/login';
 import SignUp from './sign-up/sign-up';
 import PageNotFound from './page-not-found/page-not-found';
