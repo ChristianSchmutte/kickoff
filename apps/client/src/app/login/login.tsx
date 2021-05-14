@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import './login.module.scss';
 
 /* eslint-disable-next-line */
@@ -38,9 +38,9 @@ export function Login(props: LoginProps) {
           placeholder='Password'
         />
       </label>
-      <button className='btn-login' type='submit'>
+      <Link className='btn-login' to='/home'>
         Login
-      </button>
+      </Link>
     </form>
   );
 }
