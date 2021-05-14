@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './auth-provider.module.scss';
+import './auth-content.module.scss';
 import auth from './firebase';
 import firebase from 'firebase/app';
 
