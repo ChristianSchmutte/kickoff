@@ -16,6 +16,8 @@ interface Activity {
   endTimestamp: number;
   location: string;
   id: string;
+  postcode: string;
+  location_url: string;
 }
 
 const mockActivities: Activity[] = [
@@ -26,6 +28,8 @@ const mockActivities: Activity[] = [
     endTimestamp: new Date(2021, 7, 13, 13).getTime(),
     location: 'War Memorial Park',
     id: uuidv4(),
+    postcode: 'CV24FR',
+    location_url: 'www.google.com'
   },
 
   {
@@ -35,6 +39,8 @@ const mockActivities: Activity[] = [
     endTimestamp: new Date(2021, 6, 13, 13).getTime(),
     location: `Da'an Forest Park`,
     id: uuidv4(),
+    postcode: 'CV31ORR',
+    location_url: 'www.google.com'
   },
 
   {
@@ -44,7 +50,9 @@ const mockActivities: Activity[] = [
     endTimestamp: new Date(2021, 6, 7, 13).getTime(),
     location: 'Coffin Cricket Ink',
     id: uuidv4(),
-  },
+    postcode: 'CV24GW',
+    location_url: 'www.google.com'
+  }
 ];
 
 function formatTimeRemaingInMilliseconds(timestamp: number): number {
@@ -56,6 +64,14 @@ function formatTimeRemaingInMilliseconds(timestamp: number): number {
 
 export function Feed(props: FeedProps) {
   const [activities, setActivities] = useState<Activity[]>(mockActivities);
+  const [selectedActivityId, setSelectedActivityId] = useState();
+  const selectedActivity = activities.find(
+    (activity) => activity.id === selectedActivityId
+  );
+
+  const handleActivityPost = (newActivity) => {
+    setActivities([...mockActivities, newActivity]);
+  };
 
   const sortedActivities = activities.sort(function (a, b) {
     if (
