@@ -13,12 +13,11 @@ implements OnModuleInit, OnModuleDestroy {
     this.$disconnect();
   }
 
-  async createUser(uid: string, createUserDto: CreateUserDto): Promise<User> {
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
     
     try {
       const newUser = await this.user.create({
         data: {
-          uid,
           firstname: createUserDto.firstname,
           lastname: createUserDto.lastname,
         }

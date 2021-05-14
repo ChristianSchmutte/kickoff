@@ -1,15 +1,16 @@
+import { User } from '.prisma/client';
 import { Activity } from '.prisma/client';
 import { Controller, Get, Param, ParseIntPipe, Patch, Query } from '@nestjs/common';
-import { FeedService } from './feed.service';
 
+import { FeedService } from './feed.service';
 
 @Controller('feed')
 export class FeedController {
-
+  
   constructor(
     private feedService: FeedService,
-  ) {}
-
+    ) {}
+    
   @Get()
   getFeed(): Promise<Activity[]> {
     return this.feedService.getFeed();
@@ -24,8 +25,6 @@ export class FeedController {
   addUserToActivity(
     @Query('activityId', ParseIntPipe) activityId: number,
     // TODO: seperate into auth module with UseGuard and UserPipe
-    // see
-    // https://firebase.google.com/docs/auth/admin
     @Query('userId', ParseIntPipe) userId: number,
   ) {
     return this.feedService.addUserToActivity(activityId, userId);
