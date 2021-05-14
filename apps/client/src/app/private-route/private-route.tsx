@@ -1,5 +1,4 @@
-import React, { FunctionComponent } from 'react';
-import { useAuth } from '../auth-content/auth-content';
+import React, { FunctionComponent, useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import './private-route.module.scss';
 
@@ -15,7 +14,7 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = ({
   exact,
   path
 }) => {
-  const { user: currentUser } = useAuth();
+  const [currentUser, setCurrentUser] = useState(null);
 
   return currentUser ? (
     <Route path={path} exact={exact} component={RouteComponent} />

@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useAuth } from '../auth-content/auth-content';
 import './login.module.scss';
 
 /* eslint-disable-next-line */
 export interface LoginProps {}
 
 export function Login(props: LoginProps) {
-  const { user: currentUser, login } = useAuth();
+  const [currentUser, setCurrentUser] = useState(null);
   const handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
     try {
-      login(email.value, password.value);
+      // ...
     } catch (error) {
       console.log(error);
     }
