@@ -26,8 +26,6 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
   const { chosenActivity, handler, activityHandler, idHandler } =
     useContext(ActivitiesContext) || {};
 
-  // console.log('ha', handler);
-
   const iniState = {
     title: '',
     description: '',
@@ -57,7 +55,6 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
   const activityEdit = (changes) => {
     activityHandler(postedActivity.id, { ...postedActivity, ...changes });
   };
-  // setPostedActivity(initialState);
 
   const history = useHistory();
   const redirectToFeed = () => {
@@ -72,7 +69,6 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
     }
     redirectToFeed();
     idHandler(null);
-    // setPostedActivity(initialState);
   };
 
   return (

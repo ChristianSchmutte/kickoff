@@ -88,8 +88,6 @@ export function ActivityContext(props: ActivityContextProps) {
     (activity) => activity.id === selectedActivityId
   );
 
-  // console.log('selectedActivity', selectedActivity);
-
   const handleSelectedActivityId = (id: string) => {
     setSelectedActivityId(id);
   };
@@ -107,8 +105,6 @@ export function ActivityContext(props: ActivityContextProps) {
       return -1;
     return 0;
   });
-
-  console.log('SA', sortedActivities);
 
   const handleActivityPost = (newActivity) => {
     setActivities([...activities, newActivity]);
