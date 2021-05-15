@@ -12,15 +12,22 @@ import './feed.module.scss';
 /* eslint-disable-next-line */
 export interface FeedProps {}
 
+interface Activity {
+  title: string;
+  description: string;
+  startTimestamp: number;
+  endTimestamp: number;
+  location: string;
+  id: string;
+  postcode: string;
+  location_url: string;
+}
+
 export function Feed(props: FeedProps) {
   const { activities, handler } = useContext(ActivitiesContext) || {};
   // console.log('activities', activities);
 
-  const [refreshedActivities, setRefreshedActivities] = useState(activities);
-
-  useEffect(() => {
-    setRefreshedActivities(refreshedActivities);
-  }, [activities]);
+  const [updatedActivities, setupdatedActivities] = useState(activities);
 
   // For redirection to create activity page
   const history = useHistory();
@@ -28,7 +35,7 @@ export function Feed(props: FeedProps) {
     history.push('/create');
   };
 
-  const activityCards: JSX.Element[] = refreshedActivities?.map((activity) => (
+  const activityCards: JSX.Element[] = updatedActivities?.map((activity) => (
     <ActivityCard
       id={activity.id}
       key={activity.id}

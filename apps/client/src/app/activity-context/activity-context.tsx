@@ -25,6 +25,10 @@ interface Activity {
 interface ActivityContextType {
   activities: Activity[];
   handler: (activity: Activity) => void;
+  idHandler: (id: string) => string;
+  idx: string;
+  chosenActivity: Activity;
+  activityHandler: (id: string, activity: Activity) => void;
 }
 export const ActivitiesContext = React.createContext<ActivityContextType | null>(
   null
@@ -74,13 +78,20 @@ export function ActivityContext(props: ActivityContextProps) {
   }
 
   const [activities, setActivities] = useState<Activity[]>(mockActivities);
-  // const [selectedActivityId, setSelectedActivityId] = useState();
-  // const selectedActivity = activities.find(
-  //   (activity) => activity.id === selectedActivityId
-  // );
 
-  const handleActivityPost = (newActivity) => {
-    setActivities([...activities, newActivity]);
+  useEffect(() => {
+    setActivities(activities);
+  }, [activities]);
+
+  const [selectedActivityId, setSelectedActivityId] = useState<string>();
+  const selectedActivity: Activity = activities.find(
+    (activity) => activity.id === selectedActivityId
+  );
+
+  // console.log('selectedActivity', selectedActivity);
+
+  const handleSelectedActivityId = (id: string) => {
+    setSelectedActivityId(id);
   };
 
   const sortedActivities = [...activities].sort(function (a, b) {
@@ -99,9 +110,24 @@ export function ActivityContext(props: ActivityContextProps) {
 
   console.log('SA', sortedActivities);
 
+  const handleActivityPost = (newActivity) => {
+    setActivities([...activities, newActivity]);
+  };
+
+  const handleActivityEdit = (id, newActivity) => {
+    const newActivities = [...activities];
+    const index = activities.findIndex((activity) => activity.id === id);
+    newActivities[index] = newActivity;
+    setActivities(newActivities);
+  };
+
   const contextContent = {
     activities: sortedActivities,
-    handler: handleActivityPost
+    handler: handleActivityPost,
+    idHandler: handleSelectedActivityId,
+    idx: selectedActivityId,
+    chosenActivity: selectedActivity,
+    activityHandler: handleActivityEdit
   };
 
   return (
