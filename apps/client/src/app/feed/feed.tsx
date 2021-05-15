@@ -23,12 +23,11 @@ interface Activity {
   location_url: string;
 }
 
-export function Feed(props: FeedProps) {
+
+const Feed = (props: FeedProps): JSX.Element => {
   const { activities, handler } = useContext(ActivitiesContext) || {};
-  // console.log('activities', activities);
 
   const [updatedActivities, setupdatedActivities] = useState(activities);
-
   // For redirection to create activity page
   const history = useHistory();
   const redirect = () => {
@@ -60,6 +59,6 @@ export function Feed(props: FeedProps) {
       />
     </div>
   );
-}
+};
 
 export default Feed;
