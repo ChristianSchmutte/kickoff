@@ -25,11 +25,12 @@ interface Activity {
 interface ActivityContextType {
   activities: Activity[];
   handler: (activity: Activity) => void;
-  idHandler: (id: string) => string;
+  idHandler: (id: string) => void;
   idx: string;
   chosenActivity: Activity;
   activityHandler: (id: string, activity: Activity) => void;
 }
+
 export const ActivitiesContext = React.createContext<ActivityContextType | null>(
   null
 );
@@ -79,16 +80,12 @@ export function ActivityContext(props: ActivityContextProps) {
 
   const [activities, setActivities] = useState<Activity[]>(mockActivities);
 
-  useEffect(() => {
-    setActivities(activities);
-  }, [activities]);
-
   const [selectedActivityId, setSelectedActivityId] = useState<string>();
   const selectedActivity: Activity = activities.find(
     (activity) => activity.id === selectedActivityId
   );
 
-  const handleSelectedActivityId = (id: string) => {
+  const handleSelectedActivityId = (id: string): void => {
     setSelectedActivityId(id);
   };
 
