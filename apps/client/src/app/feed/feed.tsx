@@ -1,8 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import ActivityCard from '../activity-card/activity-card';
 import NavBar from '../nav-bar/nav-bar';
 import styles from './feed.module.scss';
-import { v4 as uuidv4 } from 'uuid';
 import createIcon from '../../assets/plus-circle.svg';
 import { ActivitiesContext } from '../activity-context/activity-context';
 import { useHistory } from 'react-router-dom';
@@ -23,9 +22,8 @@ interface Activity {
   location_url: string;
 }
 
-
 const Feed = (props: FeedProps): JSX.Element => {
-  const { activities, handler } = useContext(ActivitiesContext) || {};
+  const { activities } = useContext(ActivitiesContext) || {};
 
   const [updatedActivities, setupdatedActivities] = useState(activities);
   // For redirection to create activity page
@@ -34,7 +32,7 @@ const Feed = (props: FeedProps): JSX.Element => {
     history.push('/create');
   };
 
-  const activityCards: JSX.Element[] = updatedActivities?.map((activity) => (
+  const activityCards: JSX.Element[] = updatedActivities.map((activity) => (
     <ActivityCard
       id={activity.id}
       key={activity.id}

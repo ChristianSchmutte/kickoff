@@ -5,6 +5,7 @@ import user from '../../assets/user.svg';
 import photo from '../../assets/photo.jpeg';
 import { useHistory } from 'react-router-dom';
 import { ActivitiesContext } from '../activity-context/activity-context';
+import edit from '../../assets/edit.svg';
 // import useSWR from 'swr';
 
 /* eslint-disable-next-line */
@@ -90,16 +91,14 @@ export function ActivityCard({
         <button type='button' className={styles.join}>
           <span>Join</span>
         </button>
-        <button
-          type='button'
-          className={styles.join}
+        <img
+          src={edit}
+          alt='edit button'
           onClick={(e) => {
             idHandler(id);
             redirect();
           }}
-        >
-          <span>Edit</span>
-        </button>
+        />
         <div className={styles.particpants}>
           {renderProfilePics ? renderProfilePics : undefined}
         </div>

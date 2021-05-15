@@ -174,7 +174,12 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
         {/* To be changed to map later*/}
         <label htmlFor='map'>Map</label>
         <br />
-        <textarea name='map' id='map' value='' />
+        <textarea
+          name='map'
+          id='map'
+          value=''
+          onChange={(e) => handleChange({ description: e.target.value })}
+        />
         <br />
         <br />
       </form>
