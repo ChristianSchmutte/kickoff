@@ -7,10 +7,8 @@ import CreateActivityForm from './create-activity-form/create-activity-form';
 import ActivityContext from './activity-context/activity-context';
 import PageNotFound from './page-not-found/page-not-found';
 
-
 export function App() {
   return (
-
     <ActivityContext>
       <BrowserRouter>
         <Switch>
