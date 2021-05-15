@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Moment from 'moment';
 import styles from './activity-card.module.scss';
 import user from '../../assets/user.svg';
 import photo from '../../assets/photo.jpeg';
+import { useHistory } from 'react-router-dom';
+import { ActivitiesContext } from '../activity-context/activity-context';
 // import useSWR from 'swr';
 
 /* eslint-disable-next-line */
@@ -41,7 +43,7 @@ export function ActivityCard({
   startTimestamp,
   endTimestamp,
   location,
-  id,
+  id
 }: ActivityCardProps): JSX.Element {
   const timeRemaining: string = formatTimeRemaing(startTimestamp);
   const fromStartToFinish: string = formatFromStartToFinish(
@@ -52,16 +54,24 @@ export function ActivityCard({
   // profilePics: An array of profile pictures for every participant
   const [profilePics, setProfilePics] = useState([]);
 
+  const { idHandler } = useContext(ActivitiesContext) || {};
+
   const renderProfilePics = profilePics.map(({ img, id }) => (
     <div className={styles.profilePicWrapper}>
-      <img className={styles.profilePic} key={id} src={img} alt="profile" />
+      <img className={styles.profilePic} key={id} src={img} alt='profile' />
     </div>
   ));
+
+  // For redirection to edit activity page
+  const history = useHistory();
+  const redirect = () => {
+    history.push('/create');
+  };
 
   return (
     <div className={styles.cardContainer}>
       <div className={styles.header}>
-        <img className={styles.photo} src={photo} alt="profile" />
+        <img className={styles.photo} src={photo} alt='profile' />
         <div className={styles.titleWrapper}>
           <h3 className={styles.title}>{title}</h3>
           <h6 className={styles.timeRemaining}>{timeRemaining}</h6>
@@ -77,8 +87,18 @@ export function ActivityCard({
         <div className={styles.startToFinish}>{fromStartToFinish}</div>
       </div>
       <div className={styles.footer}>
-        <button type="button" className={styles.join}>
+        <button type='button' className={styles.join}>
           <span>Join</span>
+        </button>
+        <button
+          type='button'
+          className={styles.join}
+          onClick={(e) => {
+            idHandler(id);
+            redirect();
+          }}
+        >
+          <span>Edit</span>
         </button>
         <div className={styles.particpants}>
           {renderProfilePics ? renderProfilePics : undefined}
