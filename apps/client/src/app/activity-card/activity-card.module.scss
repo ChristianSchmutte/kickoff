@@ -63,9 +63,9 @@ $misc-color: #00b5b2;
     }
   }
   .footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas: 'left midleft midright right';
     margin-top: 1rem;
     margin-left: 0.56rem;
     button {
@@ -79,6 +79,12 @@ $misc-color: #00b5b2;
         font-size: medium;
         color: #ffffff;
       }
+    }
+    img {
+      grid-area: right;
+      justify-self: center;
+      width: 2rem;
+      height: 2rem;
     }
   }
 }
