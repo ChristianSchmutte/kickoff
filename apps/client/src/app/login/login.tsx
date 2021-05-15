@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import './login.module.scss';
+import styles from './login.module.scss';
 
 /* eslint-disable-next-line */
 export interface LoginProps {}
@@ -19,27 +19,32 @@ export function Login(props: LoginProps) {
   if (currentUser) return <Redirect to='/home' />;
 
   return (
-    <form className='form-container' onSubmit={handleSubmit}>
-      <label className='email-label'>
-        Email
+    <form className={styles.formContainer} onSubmit={handleSubmit}>
+      <div className={styles.emailLabelInputWrapper}>
+        <label htmlFor='email' className={styles.emailLabel}>
+          Email
+        </label>
         <input
-          className='email-input'
+          className={styles.emailInput}
           type='email'
           name='email'
-          placeholder='Email Address'
+          placeholder='e.g. john@gmail.com'
         />
-      </label>
-      <label className='password-label'>
-        Password
+      </div>
+      <div className={styles.passwordLabelInputWrapper}>
+        <label className={styles.passwordLabel}>Password</label>
         <input
-          className='password-input'
+          className={styles.passwordInput}
           type='password'
           name='password'
-          placeholder='Password'
+          placeholder='At least 8 symbols...'
         />
-      </label>
-      <Link className='btn-login' to='/home'>
+      </div>
+      <Link className={styles.loginButton} to='/home'>
         Login
+      </Link>
+      <Link className={styles.signUpButton} to='/signup'>
+        Sign Up
       </Link>
     </form>
   );

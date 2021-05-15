@@ -1,6 +1,88 @@
-$font-main: Ubuntu Mono;
-.form-container {
-  .btn-login {
-    font-family: $font-main;
+$secondary-bkg-color: #ffffff;
+$primary-bkg-color: #e5e5e5;
+$input-text-color: black;
+$login-btn-color: #6c60ff;
+$signup-btn-color: #00b5b2;
+$box-shadow: 0px 3px 3px 2px rgba(101, 101, 101, 0.26);
+
+body {
+  font-family: Ubuntu Mono;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-bkg-color;
+}
+
+.formContainer {
+  background-color: $secondary-bkg-color;
+  width: 17.875rem;
+  height: 23.125rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: $box-shadow;
+  .emailLabelInputWrapper {
+    position: relative;
+    .emailLabel {
+      position: absolute;
+      top: -0.5rem;
+      left: 1rem;
+      background-color: $secondary-bkg-color;
+      color: $input-text-color;
+    }
+    .emailInput {
+      opacity: 1;
+      width: 14.5rem;
+      height: 3.5rem;
+      border: 1px solid #dddddd;
+      box-sizing: border-box;
+      border-radius: 8px;
+      padding-left: 1rem;
+    }
+  }
+  .passwordLabelInputWrapper {
+    position: relative;
+    .passwordLabel {
+      position: absolute;
+      top: -0.5rem;
+      left: 1rem;
+      background-color: $secondary-bkg-color;
+      color: $input-text-color;
+    }
+    .passwordInput {
+      opacity: 1;
+      width: 14.5rem;
+      height: 3.5rem;
+      border: 1px solid #dddddd;
+      box-sizing: border-box;
+      border-radius: 8px;
+      padding-left: 1rem;
+    }
+  }
+  .loginButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 14.5rem;
+    height: 2.625rem;
+    border-radius: 8px;
+    background-color: $login-btn-color;
+    box-shadow: $box-shadow;
+    text-decoration: none;
+  }
+  .signUpButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 14.5rem;
+    height: 2.625rem;
+    border-radius: 8px;
+    background-color: $signup-btn-color;
+    box-shadow: $box-shadow;
+    text-decoration: none;
   }
 }

@@ -1,22 +1,20 @@
 import styles from './app.module.scss';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Feed from './feed/feed';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import PrivateRoute from './private-route/private-route';
-import PageNotFound from './page-not-found/page-not-found';
 import Login from './login/login';
 import SignUp from './sign-up/sign-up';
+import PageNotFound from './page-not-found/page-not-found';
 
-// TODO: create PageNotFound Component
 export function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Switch>
         <Route exact path='/home' component={Feed} />
         <Route exact path='/' component={Login} />
         <Route exact path='/signup' component={SignUp} />
         <Route component={PageNotFound} />
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }
 
