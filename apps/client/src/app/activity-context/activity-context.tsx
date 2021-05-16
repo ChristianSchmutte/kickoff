@@ -1,78 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import NavBar from '../nav-bar/nav-bar';
-import { v4 as uuidv4 } from 'uuid';
-import createIcon from '../../assets/plus-circle.svg';
-import Feed from '../feed/feed';
-import CreateActivityForm from '../create-activity-form/create-activity-form';
+import React, { useState } from 'react';
+import {
+  Activity,
+  ActivityContextType,
+  ActivityContextProps
+} from './activity-contex.types';
 import './activity-context.module.scss';
 
+import useRequest from './activity-context.service';
+
 /* eslint-disable-next-line */
-export interface ActivityContextProps {
-  children: React.ReactNode;
-}
-
-interface Activity {
-  title: string;
-  description: string;
-  startTimestamp: number;
-  endTimestamp: number;
-  location: string;
-  id: string;
-  postcode: string;
-  location_url: string;
-}
-
-interface ActivityContextType {
-  activities: Activity[];
-  handler: (activity: Activity) => void;
-  idHandler: (id: string) => void;
-  idx: string;
-  chosenActivity: Activity;
-  activityHandler: (id: string, activity: Activity) => void;
-}
 
 export const ActivitiesContext = React.createContext<ActivityContextType | null>(
   null
 );
 
 export function ActivityContext(props: ActivityContextProps) {
-  function formatTimeRemaingInMilliseconds(timestamp: number): number {
+  const { data, isLoading, isError, error } = useRequest('/feed');
+  const [activities, setActivities] = useState(data);
+  const [selectedActivityId, setSelectedActivityId] = useState<number>();
+
+  if (isLoading) return <span>Is Loading...</span>;
+  if (isError) <span>Error: {error.message}</span>;
+
+  function formatCountdown(timestamp: number): number {
     const a: number = new Date().getTime();
     const b: number = timestamp;
     const timeRemainingInMilliseconds: number = b - a;
     return timeRemainingInMilliseconds;
   }
 
-  const [activities, setActivities] = useState<Activity[]>(mockActivities);
-
-  const [selectedActivityId, setSelectedActivityId] = useState<string>();
   const selectedActivity: Activity = activities.find(
     (activity) => activity.id === selectedActivityId
   );
 
-  const handleSelectedActivityId = (id: string): void => {
+  const handleSelectedActivityId = (id: number): void => {
     setSelectedActivityId(id);
   };
 
-  const sortedActivities = [...activities].sort(function (a, b) {
-    if (
-      formatTimeRemaingInMilliseconds(a.startTimestamp) >
-      formatTimeRemaingInMilliseconds(b.startTimestamp)
-    )
-      return 1;
-    if (
-      formatTimeRemaingInMilliseconds(a.startTimestamp) <
-      formatTimeRemaingInMilliseconds(b.startTimestamp)
-    )
-      return -1;
+  const sortedActivities = [...activities].sort((a, b) => {
+    if (formatCountdown(a.timestamp) > formatCountdown(b.ends)) return 1;
+    if (formatCountdown(a.timestamp) < formatCountdown(b.ends)) return -1;
     return 0;
   });
 
   const handleActivityPost = (newActivity) => {
     setActivities([...activities, newActivity]);
   };
-
-  const handleActivityEdit = (id, newActivity) => {
+  // TODO: try to modify the editActivityHandler into a pure function with no side effects (or at least minimize side effects)
+  const editActivityHandler = (id, newActivity) => {
     const newActivities = [...activities];
     const index = activities.findIndex((activity) => activity.id === id);
     newActivities[index] = newActivity;
@@ -84,8 +59,8 @@ export function ActivityContext(props: ActivityContextProps) {
     handler: handleActivityPost,
     idHandler: handleSelectedActivityId,
     idx: selectedActivityId,
-    chosenActivity: selectedActivity,
-    activityHandler: handleActivityEdit
+    selectedActivity: selectedActivity,
+    editActivity: editActivityHandler
   };
 
   return (
