@@ -36,41 +36,6 @@ export const ActivitiesContext = React.createContext<ActivityContextType | null>
 );
 
 export function ActivityContext(props: ActivityContextProps) {
-  const mockActivities: Activity[] = [
-    {
-      title: 'Football',
-      description: 'Saturday Night Football',
-      startTimestamp: new Date(2021, 7, 12, 11).getTime(),
-      endTimestamp: new Date(2021, 7, 13, 13).getTime(),
-      location: 'War Memorial Paraak',
-      id: uuidv4(),
-      postcode: 'CV24FR',
-      location_url: 'www.google.com'
-    },
-
-    {
-      title: 'Basketball',
-      description: 'description...',
-      startTimestamp: new Date(2021, 6, 12, 11).getTime(),
-      endTimestamp: new Date(2021, 6, 13, 13).getTime(),
-      location: `Da'an Forest Park`,
-      id: uuidv4(),
-      postcode: 'CV31ORR',
-      location_url: 'www.google.com'
-    },
-
-    {
-      title: 'Cricket',
-      description: 'description...',
-      startTimestamp: new Date(2021, 6, 6, 11).getTime(),
-      endTimestamp: new Date(2021, 6, 7, 13).getTime(),
-      location: 'Coffin Cricket Ink',
-      id: uuidv4(),
-      postcode: 'CV24GW',
-      location_url: 'www.google.com'
-    }
-  ];
-
   function formatTimeRemaingInMilliseconds(timestamp: number): number {
     const a: number = new Date().getTime();
     const b: number = timestamp;
