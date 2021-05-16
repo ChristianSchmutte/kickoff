@@ -23,7 +23,7 @@ export interface CreateActivityFormProps {
 }
 
 export function CreateActivityForm(props: CreateActivityFormProps) {
-  const { chosenActivity, handler, activityHandler, idHandler } =
+  const { selectedActivity, handler, editActivity, idHandler } =
     useContext(ActivitiesContext) || {};
 
   const iniState = {
@@ -39,9 +39,9 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
 
   let initialState;
 
-  const mode = chosenActivity ? 'Edit' : 'NewPost';
+  const mode = selectedActivity ? 'Edit' : 'NewPost';
   if (mode === 'Edit') {
-    initialState = chosenActivity;
+    initialState = selectedActivity;
   } else {
     initialState = iniState;
   }
@@ -53,7 +53,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
   };
 
   const activityEdit = (changes) => {
-    activityHandler(postedActivity.id, { ...postedActivity, ...changes });
+    editActivity(postedActivity.id, { ...postedActivity, ...changes });
   };
 
   const history = useHistory();
@@ -63,7 +63,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
 
   const onSaveHandler = () => {
     if (mode === 'Edit') {
-      activityHandler(postedActivity.id, postedActivity);
+      editActivity(postedActivity.id, postedActivity);
     } else if (handler !== null) {
       handler(postedActivity);
     }
