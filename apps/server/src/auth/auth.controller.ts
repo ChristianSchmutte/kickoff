@@ -1,6 +1,5 @@
 import { User } from '.prisma/client';
-import { Controller, Get, HttpStatus, Req, Res, UseGuards } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get, HttpStatus, UseGuards } from '@nestjs/common';
 import { GetUser } from './decorators/user.decorator';
 import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { FacebookAuthGuard } from './guards/fb.guard';

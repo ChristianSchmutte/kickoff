@@ -1,4 +1,3 @@
-import { User } from '.prisma/client';
 import { Activity } from '.prisma/client';
 import { Controller, Get, Param, ParseIntPipe, Patch, Query } from '@nestjs/common';
 

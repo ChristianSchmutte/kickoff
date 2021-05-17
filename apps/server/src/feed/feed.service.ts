@@ -1,8 +1,6 @@
 import { Activity } from '.prisma/client';
 import { Injectable } from '@nestjs/common';
-import { ActivityService } from '../activity/activity.service';
 import { ActivityClient } from '../activity/dbclient/activity.client';
-import { FeedClient } from './feed.client';
 
 @Injectable()
 export class FeedService {
