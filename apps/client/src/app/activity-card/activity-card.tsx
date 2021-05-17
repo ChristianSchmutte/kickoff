@@ -14,8 +14,8 @@ export interface ActivityCardProps {
   description: string;
   startTimestamp: number;
   endTimestamp?: number;
-  location: string;
-  id?: string;
+  location: number;
+  id?: number;
 }
 
 function convertToMoment(timestamp: number): [number, number, number] {
