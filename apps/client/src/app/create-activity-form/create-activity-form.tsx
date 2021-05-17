@@ -52,7 +52,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
     setPostedActivity({ ...postedActivity, ...changes });
   };
 
-  const activityEdit = (changes) => {
+  const editActivityHandler = (changes) => {
     editActivity(postedActivity.id, { ...postedActivity, ...changes });
   };
 
