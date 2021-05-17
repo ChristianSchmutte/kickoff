@@ -2,25 +2,13 @@ import React, { useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ActivitiesContext } from '../activity-context/activity-context';
 import { useHistory } from 'react-router-dom';
-
+import {
+  Activity,
+  CreateActivityFormProps
+} from './create-activity-form.types';
 import './create-activity-form.module.scss';
 
 /* eslint-disable-next-line */
-
-interface Activity {
-  title: string;
-  description: string;
-  startTimestamp: number;
-  endTimestamp: number;
-  location: string;
-  id: string;
-  postcode: string;
-  location_url: string;
-}
-
-export interface CreateActivityFormProps {
-  postedActivity: Activity;
-}
 
 export function CreateActivityForm(props: CreateActivityFormProps) {
   const { selectedActivity, handler, editActivity, idHandler } =
