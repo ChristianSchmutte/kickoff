@@ -23,12 +23,12 @@ export function ActivityContext(props: ActivityContextProps) {
   if (isError) return <span>Error: {error.message}</span>;
   if (isFetching) return <span>Is Updating...</span>;
 
-  function formatCountdown(timestamp: number): number {
+  const formatCountdown = (timestamp: number): number => {
     const a: number = new Date().getTime();
     const b: number = timestamp;
     const timeRemainingInMilliseconds: number = b - a;
     return timeRemainingInMilliseconds;
-  }
+  };
 
   const selectedActivity: Activity = activities.find(
     (activity) => activity.id === selectedActivityId
