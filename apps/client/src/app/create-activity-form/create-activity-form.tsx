@@ -52,7 +52,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
   const onSaveHandler = () => {
     if (mode === 'Edit') {
       editActivity(postedActivity.id, postedActivity);
-    } else if (handler !== null) {
+    } else if (handler) {
       handler(postedActivity);
     }
     redirectToFeed();
