@@ -8,8 +8,8 @@ import './create-activity-form.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 
 /* eslint-disable-next-line */
-const queryClient = useQueryClient();
 export function CreateActivityForm(props: CreateActivityFormProps) {
+  const queryClient = useQueryClient();
   const { selectedActivity, handler, editActivity, idHandler } =
     useContext(ActivitiesContext) || {};
 
