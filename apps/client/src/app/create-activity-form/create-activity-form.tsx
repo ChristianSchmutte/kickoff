@@ -1,16 +1,14 @@
-import React, { useContext, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { ActivitiesContext } from '../activity-context/activity-context';
+import { useContext, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { useHistory } from 'react-router-dom';
-import {
-  Activity,
-  CreateActivityFormProps
-} from './create-activity-form.types';
+import { ActivitiesContext } from '../activity-context/activity-context';
+import postActivity from './create-activity-form.service';
+import { CreateActivityFormProps } from './create-activity-form.types';
 import './create-activity-form.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 
 /* eslint-disable-next-line */
-
+const queryClient = useQueryClient();
 export function CreateActivityForm(props: CreateActivityFormProps) {
   const { selectedActivity, handler, editActivity, idHandler } =
     useContext(ActivitiesContext) || {};
@@ -47,7 +45,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
   const handleChange = (changes) => {
     setPostedActivity({ ...postedActivity, ...changes });
   };
-
+  // TODO: remove this handler, since it's not being used anywhere
   const editActivityHandler = (changes) => {
     editActivity(postedActivity.id, { ...postedActivity, ...changes });
   };
@@ -57,11 +55,16 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
     history.push('/home');
   };
 
-  const onSaveHandler = () => {
+  const onSaveHandler = async (): Promise<void> => {
     if (mode === 'Edit') {
       editActivity(postedActivity.id, postedActivity);
     } else if (handler) {
-      handler(postedActivity);
+      // handler(postedActivity);
+      try {
+        await postActivity({ endpoint: '/activity', activity: postedActivity });
+      } catch (error) {
+        throw new Error(error.message);
+      }
     }
     redirectToFeed();
     idHandler(null);
@@ -180,7 +183,13 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
         <br />
       </form>
       <div>
-        <button onClick={() => onSaveHandler()}>Save</button>
+        <button
+          onClick={() =>
+            mutate({ endpoint: '/activity', activity: postedActivity })
+          }
+        >
+          Save
+        </button>
       </div>
     </>
   );
