@@ -16,7 +16,7 @@ interface Activity {
   description: string;
   startTimestamp: number;
   endTimestamp: number;
-  location: string;
+  location: number;
   id: string;
   postcode: string;
   location_url: string;
@@ -38,9 +38,9 @@ const Feed = (props: FeedProps): JSX.Element => {
       key={activity.id}
       title={activity.title}
       description={activity.description}
-      startTimestamp={activity.startTimestamp}
-      endTimestamp={activity.endTimestamp}
-      location={activity.location}
+      startTimestamp={activity.timestamp}
+      endTimestamp={activity.ends}
+      location={activity.locationId}
     />
   ));
   return (
