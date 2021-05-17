@@ -15,8 +15,15 @@ export const ActivitiesContext = React.createContext<ActivityContextType | null>
 );
 
 export function ActivityContext(props: ActivityContextProps) {
-  const { data, isLoading, isError, isFetching, error } = useRequest('/feed');
-  const [activities, setActivities] = useState(data);
+  const {
+    data: activities,
+    isLoading,
+    isError,
+    isFetching,
+    error
+  } = useRequest('/feed');
+
+  // const [activities, setActivities] = useState<Activity[]>(data);
   const [selectedActivityId, setSelectedActivityId] = useState<number>();
 
   if (isLoading) return <span>Is Loading...</span>;
