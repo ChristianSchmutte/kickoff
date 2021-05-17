@@ -1,17 +1,15 @@
 import { useContext, useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { ActivitiesContext } from '../activity-context/activity-context';
-import postActivity from './create-activity-form.service';
 import { CreateActivityFormProps } from './create-activity-form.types';
 import './create-activity-form.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 
+import { useMutation, useQueryClient } from 'react-query';
+import { postActivity } from './create-activity-form.service';
 /* eslint-disable-next-line */
 export function CreateActivityForm(props: CreateActivityFormProps) {
   const queryClient = useQueryClient();
-  const { selectedActivity, handler, editActivity, idHandler } =
-    useContext(ActivitiesContext) || {};
 
   const { mutate } = useMutation(postActivity, {
     onMutate: (newData) => {
@@ -20,15 +18,20 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
     }
   });
 
+  const { selectedActivity, handler, editActivity, idHandler } =
+    useContext(ActivitiesContext) || {};
+
   const iniState = {
     title: '',
     description: '',
-    startTimestamp: new Date().getTime(),
-    endTimestamp: new Date().getTime(),
-    location: '',
-    id: uuidv4(),
-    postcode: '',
-    location_url: ''
+    timestamp: new Date().getTime(),
+    ends: new Date().getTime(),
+    organizerId: 1,
+    locationId: 1,
+    sportId: 1
+    // id: uuidv4(),
+    // postcode: '',
+    // location_url: ''
   };
 
   let initialState;
@@ -58,13 +61,9 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
   const onSaveHandler = async (): Promise<void> => {
     if (mode === 'Edit') {
       editActivity(postedActivity.id, postedActivity);
-    } else if (handler) {
-      // handler(postedActivity);
-      try {
-        await postActivity({ endpoint: '/activity', activity: postedActivity });
-      } catch (error) {
-        throw new Error(error.message);
-      }
+    } else if (mutate) {
+      console.log(postedActivity);
+      await mutate({ endpoint: '/activity', activity: postedActivity });
     }
     redirectToFeed();
     idHandler(null);
@@ -92,7 +91,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
         <br />
         <label htmlFor='location'>Place</label>
         <br />
-        <input
+        {/* <input
           type='text'
           name='location'
           id='location'
@@ -101,12 +100,12 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           onChange={(e) => {
             handleChange({ location: e.target.value });
           }}
-        />
+        /> */}
         <br />
         <br />
         <label htmlFor='postcode'>Post Code</label>
         <br />
-        <input
+        {/* <input
           type='text'
           name='postcode'
           id='postcode'
@@ -115,7 +114,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           onChange={(e) => {
             handleChange({ postcode: e.target.value });
           }}
-        />
+        /> */}
         <br />
         <br />
         <label htmlFor='location_url'>Location URL</label>
@@ -184,9 +183,9 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
       </form>
       <div>
         <button
-          onClick={() =>
-            mutate({ endpoint: '/activity', activity: postedActivity })
-          }
+          onClick={() => {
+            onSaveHandler();
+          }}
         >
           Save
         </button>
