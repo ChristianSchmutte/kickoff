@@ -20,7 +20,8 @@ export function ActivityContext(props: ActivityContextProps) {
   const [selectedActivityId, setSelectedActivityId] = useState<number>();
 
   if (isLoading) return <span>Is Loading...</span>;
-  if (isError) <span>Error: {error.message}</span>;
+  if (isError) return <span>Error: {error.message}</span>;
+  if (isFetching) return <span>Is Updating...</span>;
 
   function formatCountdown(timestamp: number): number {
     const a: number = new Date().getTime();
