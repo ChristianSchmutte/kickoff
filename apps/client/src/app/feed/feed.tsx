@@ -32,17 +32,19 @@ const Feed = (props: FeedProps): JSX.Element => {
     history.push('/create');
   };
 
-  const activityCards: JSX.Element[] = updatedActivities.map((activity) => (
-    <ActivityCard
-      id={activity.id}
-      key={activity.id}
-      title={activity.title}
-      description={activity.description}
-      startTimestamp={activity.timestamp}
-      endTimestamp={activity.ends}
-      location={activity.locationId}
-    />
-  ));
+  const activityCards: JSX.Element[] =
+    updatedActivities &&
+    updatedActivities.map((activity) => (
+      <ActivityCard
+        id={activity.id}
+        key={activity.id}
+        title={activity.title}
+        description={activity.description}
+        startTimestamp={activity.timestamp}
+        endTimestamp={activity.ends}
+        location={activity.locationId}
+      />
+    ));
   return (
     <div className={styles.container}>
       <NavBar />
