@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import './activity-context.module.scss';
 import {
   Activity,
   ActivityContextType,
   ActivityContextProps
 } from './activity-contex.types';
-import './activity-context.module.scss';
 
-import useRequest from './activity-context.service';
+import { useRequest } from './activity-context.hooks';
 
 /* eslint-disable-next-line */
 
@@ -25,7 +25,6 @@ export function ActivityContext(props: ActivityContextProps) {
 
   // const [activities, setActivities] = useState<Activity[]>(data);
   const [selectedActivityId, setSelectedActivityId] = useState<number>();
-  if (activities) console.log(activities);
 
   if (isLoading) return <span>Is Loading...</span>;
   if (isError) return <span>Error: {error.message}</span>;
