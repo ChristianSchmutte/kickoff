@@ -30,9 +30,9 @@ export function ActivityContext(props: ActivityContextProps) {
     return timeRemainingInMilliseconds;
   };
 
-  const selectedActivity: Activity = activities.find(
-    (activity) => activity.id === selectedActivityId
-  );
+  const selectedActivity: Activity =
+    activities &&
+    activities.find((activity) => activity.id === selectedActivityId);
 
   const handleSelectedActivityId = (id: number): void => {
     setSelectedActivityId(id);
