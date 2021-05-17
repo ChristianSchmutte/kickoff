@@ -15,8 +15,8 @@ async function main() {
 
   const user = await prisma.user.create({
     data: {
-      firstname: 'Lenny',
-      lastname: 'Leonard',
+      username: 'Lenny Leonard',
+      oauthId: 'abcdefghijlkmnopqrstuvwxyz',
     },
   });
   await prisma.activity.createMany({

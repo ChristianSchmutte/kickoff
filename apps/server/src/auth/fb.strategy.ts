@@ -1,16 +1,18 @@
 import { User } from '.prisma/client';
+import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, Profile, } from 'passport-facebook';
-import { UserClient } from './user.client';
-
+import { AuthService } from './auth.service';
+@Injectable()
 export class FaceBookStrategy extends PassportStrategy(Strategy, 'facebook') {
   constructor(
-    private userClient: UserClient,
+    private authService: AuthService,
   ) {
     super({
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
       callbackURL: 'http://localhost:3333/api/auth/facebook/redirect',
+      scopes: ['public_profile'],
     });
   }
 
@@ -20,19 +22,8 @@ export class FaceBookStrategy extends PassportStrategy(Strategy, 'facebook') {
     refreshtoken: string,
     profile: Profile,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    done: (err: any, user: any, info?: any) => void
-    ): Promise<void> {
-      const { name, emails } = profile;
-      const user = {
-        email: emails[0].value,
-        firstName: name.givenName,
-        lastName: name.familyName,
-      };
-      const payload = {
-        user,
-        accessToken,
-      };
-      
-    done(null, payload);
+    ): Promise<User> {
+      const { id, displayName: username } = profile;
+      return await this.authService.validateUser(id, username);
   }
 }

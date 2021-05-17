@@ -1,6 +1,5 @@
 import { Injectable, InternalServerErrorException, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { PrismaClient, User } from '@prisma/client';
-import { CreateUserDto } from './dto/createUser.dto';
 
 @Injectable()
 export class UserClient extends PrismaClient
@@ -13,37 +12,32 @@ implements OnModuleInit, OnModuleDestroy {
     this.$disconnect();
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
-    
-    try {
-      const newUser = await this.user.create({
-        data: {
-          firstname: createUserDto.firstname,
-          lastname: createUserDto.lastname,
-        }
-      });
-      return newUser;      
-    } catch (error) {
-      throw new InternalServerErrorException('Internal server error');
-    }
-  }
-
-  async createOrUpdate(id: number, firstname: string, lastname: string): Promise<User> {
+  async createOrUpdate(oauthId: string, username: string): Promise<User> {
     try {
       return this.user.upsert({
-        where: { id },
+        where: { oauthId },
       update: {
-        firstname,
-        lastname,
+        username,
+        oauthId,
       },
       create: {
-        firstname,
-        lastname,
+        username,
+        oauthId,
       },
       });
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException('Could not create or update user');
+    }
+  }
+
+  async findByOauthId(oauthId: string): Promise<User> {
+    try {
+
+      return this.user.findUnique({ where: { oauthId }});
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException('Internal Server Error');
     }
   }
 }
