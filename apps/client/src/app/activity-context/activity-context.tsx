@@ -15,7 +15,7 @@ export const ActivitiesContext = React.createContext<ActivityContextType | null>
 );
 
 export function ActivityContext(props: ActivityContextProps) {
-  const { data, isLoading, isError, error } = useRequest('/feed');
+  const { data, isLoading, isError, isFetching, error } = useRequest('/feed');
   const [activities, setActivities] = useState(data);
   const [selectedActivityId, setSelectedActivityId] = useState<number>();
 
