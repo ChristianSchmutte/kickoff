@@ -25,6 +25,7 @@ export function ActivityContext(props: ActivityContextProps) {
 
   // const [activities, setActivities] = useState<Activity[]>(data);
   const [selectedActivityId, setSelectedActivityId] = useState<number>();
+  if (activities) console.log(activities);
 
   if (isLoading) return <span>Is Loading...</span>;
   if (isError) return <span>Error: {error.message}</span>;
