@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import ActivityCard from '../activity-card/activity-card';
 import NavBar from '../nav-bar/nav-bar';
 import styles from './feed.module.scss';
@@ -11,21 +11,11 @@ import './feed.module.scss';
 /* eslint-disable-next-line */
 export interface FeedProps {}
 
-interface Activity {
-  title: string;
-  description: string;
-  startTimestamp: number;
-  endTimestamp: number;
-  location: number;
-  id: string;
-  postcode: string;
-  location_url: string;
-}
-
 const Feed = (props: FeedProps): JSX.Element => {
   const { activities } = useContext(ActivitiesContext) || {};
 
-  const [updatedActivities, setupdatedActivities] = useState(activities);
+  const [updatedActivities, setUpdatedActivities] = useState(activities);
+
   // For redirection to create activity page
   const history = useHistory();
 
