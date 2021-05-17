@@ -46,11 +46,13 @@ export function ActivityContext(props: ActivityContextProps) {
     setSelectedActivityId(id);
   };
 
-  const sortedActivities = [...activities].sort((a, b) => {
-    if (formatCountdown(a.timestamp) > formatCountdown(b.ends)) return 1;
-    if (formatCountdown(a.timestamp) < formatCountdown(b.ends)) return -1;
-    return 0;
-  });
+  const sortedActivities =
+    activities &&
+    [...activities].sort((a, b) => {
+      if (formatCountdown(a.timestamp) > formatCountdown(b.ends)) return 1;
+      if (formatCountdown(a.timestamp) < formatCountdown(b.ends)) return -1;
+      return 0;
+    });
 
   const handleActivityPost = (newActivity) => {
     setActivities([...activities, newActivity]);
