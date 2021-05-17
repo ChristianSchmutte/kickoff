@@ -28,8 +28,10 @@ model Activity {
 
 model User {
   id                      Int         @id @default(autoincrement())
-  firstname               String
-  lastname                String
+  oauthId                 String      @unique
+  username                String
+  // firstname               String
+  // lastname                String
   friends                 User[]      @relation("user_friends")
   friendsRelation         User[]      @relation("user_friends")
   activites               Activity[]  @relation("user_activity")

@@ -11,7 +11,7 @@ interface Activity {
 
 interface ActivityContextType {
   activities: Activity[];
-  handler: (activity: Activity) => void;
+  handler: ({ endpoint: string, activity: Activity }) => void;
   idHandler: (id: number) => void;
   idx: number;
   selectedActivity: Activity;

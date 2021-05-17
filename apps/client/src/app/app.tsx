@@ -1,4 +1,3 @@
-import styles from './app.module.scss';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Feed from './feed/feed';

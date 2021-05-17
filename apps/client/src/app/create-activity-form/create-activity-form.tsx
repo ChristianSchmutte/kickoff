@@ -1,40 +1,37 @@
-import React, { useContext, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { ActivitiesContext } from '../activity-context/activity-context';
+import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import { ActivitiesContext } from '../activity-context/activity-context';
+import { CreateActivityFormProps } from './create-activity-form.types';
 import './create-activity-form.module.scss';
+import { v4 as uuidv4 } from 'uuid';
 
+import { useMutation, useQueryClient } from 'react-query';
+import { postActivity } from './create-activity-form.service';
 /* eslint-disable-next-line */
-
-interface Activity {
-  title: string;
-  description: string;
-  startTimestamp: number;
-  endTimestamp: number;
-  location: string;
-  id: string;
-  postcode: string;
-  location_url: string;
-}
-
-export interface CreateActivityFormProps {
-  postedActivity: Activity;
-}
-
 export function CreateActivityForm(props: CreateActivityFormProps) {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(postActivity, {
+    onMutate: (newData) => {
+      queryClient.invalidateQueries('feed');
+      console.log(newData);
+    }
+  });
+
   const { selectedActivity, handler, editActivity, idHandler } =
     useContext(ActivitiesContext) || {};
 
   const iniState = {
     title: '',
     description: '',
-    startTimestamp: new Date().getTime(),
-    endTimestamp: new Date().getTime(),
-    location: '',
-    id: uuidv4(),
-    postcode: '',
-    location_url: ''
+    timestamp: new Date().getTime(),
+    ends: new Date().getTime(),
+    organizerId: 1,
+    locationId: 1,
+    sportId: 1
+    // id: uuidv4(),
+    // postcode: '',
+    // location_url: ''
   };
 
   let initialState;
@@ -51,8 +48,8 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
   const handleChange = (changes) => {
     setPostedActivity({ ...postedActivity, ...changes });
   };
-
-  const activityEdit = (changes) => {
+  // TODO: remove this handler, since it's not being used anywhere
+  const editActivityHandler = (changes) => {
     editActivity(postedActivity.id, { ...postedActivity, ...changes });
   };
 
@@ -61,11 +58,12 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
     history.push('/home');
   };
 
-  const onSaveHandler = () => {
+  const onSaveHandler = async (): Promise<void> => {
     if (mode === 'Edit') {
       editActivity(postedActivity.id, postedActivity);
-    } else if (handler !== null) {
-      handler(postedActivity);
+    } else if (mutate) {
+      console.log(postedActivity);
+      await mutate({ endpoint: '/activity', activity: postedActivity });
     }
     redirectToFeed();
     idHandler(null);
@@ -93,7 +91,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
         <br />
         <label htmlFor='location'>Place</label>
         <br />
-        <input
+        {/* <input
           type='text'
           name='location'
           id='location'
@@ -102,12 +100,12 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           onChange={(e) => {
             handleChange({ location: e.target.value });
           }}
-        />
+        /> */}
         <br />
         <br />
         <label htmlFor='postcode'>Post Code</label>
         <br />
-        <input
+        {/* <input
           type='text'
           name='postcode'
           id='postcode'
@@ -116,7 +114,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           onChange={(e) => {
             handleChange({ postcode: e.target.value });
           }}
-        />
+        /> */}
         <br />
         <br />
         <label htmlFor='location_url'>Location URL</label>
@@ -184,7 +182,13 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
         <br />
       </form>
       <div>
-        <button onClick={() => onSaveHandler()}>Save</button>
+        <button
+          onClick={() => {
+            onSaveHandler();
+          }}
+        >
+          Save
+        </button>
       </div>
     </>
   );

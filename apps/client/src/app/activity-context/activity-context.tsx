@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import './activity-context.module.scss';
 import {
   Activity,
   ActivityContextType,
   ActivityContextProps
 } from './activity-contex.types';
-import './activity-context.module.scss';
 
-import useRequest from './activity-context.service';
+import { useRequest } from './activity-context.hooks';
 
 /* eslint-disable-next-line */
 
@@ -15,34 +15,43 @@ export const ActivitiesContext = React.createContext<ActivityContextType | null>
 );
 
 export function ActivityContext(props: ActivityContextProps) {
-  const { data, isLoading, isError, isFetching, error } = useRequest('/feed');
-  const [activities, setActivities] = useState(data);
+  const {
+    data: activities,
+    isLoading,
+    isError,
+    isFetching,
+    error
+  } = useRequest('/feed');
+
+  // const [activities, setActivities] = useState<Activity[]>(data);
   const [selectedActivityId, setSelectedActivityId] = useState<number>();
 
   if (isLoading) return <span>Is Loading...</span>;
   if (isError) return <span>Error: {error.message}</span>;
   if (isFetching) return <span>Is Updating...</span>;
 
-  function formatCountdown(timestamp: number): number {
+  const formatCountdown = (timestamp: number): number => {
     const a: number = new Date().getTime();
     const b: number = timestamp;
     const timeRemainingInMilliseconds: number = b - a;
     return timeRemainingInMilliseconds;
-  }
+  };
 
-  const selectedActivity: Activity = activities.find(
-    (activity) => activity.id === selectedActivityId
-  );
+  const selectedActivity: Activity =
+    activities &&
+    activities.find((activity) => activity.id === selectedActivityId);
 
   const handleSelectedActivityId = (id: number): void => {
     setSelectedActivityId(id);
   };
 
-  const sortedActivities = [...activities].sort((a, b) => {
-    if (formatCountdown(a.timestamp) > formatCountdown(b.ends)) return 1;
-    if (formatCountdown(a.timestamp) < formatCountdown(b.ends)) return -1;
-    return 0;
-  });
+  const sortedActivities =
+    activities &&
+    [...activities].sort((a, b) => {
+      if (formatCountdown(a.timestamp) > formatCountdown(b.ends)) return 1;
+      if (formatCountdown(a.timestamp) < formatCountdown(b.ends)) return -1;
+      return 0;
+    });
 
   const handleActivityPost = (newActivity) => {
     setActivities([...activities, newActivity]);
