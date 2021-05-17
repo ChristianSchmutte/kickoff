@@ -11,7 +11,7 @@ const postActivity = async ({
 }: {
   endpoint: string;
   activity: Activity;
-}) => {
+}): Promise<AxiosResponse> => {
   try {
     const response = await api.post(endpoint, activity);
     console.log({ 'axios response': response });
