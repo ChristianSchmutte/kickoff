@@ -28,6 +28,7 @@ const Feed = (props: FeedProps): JSX.Element => {
   const [updatedActivities, setupdatedActivities] = useState(activities);
   // For redirection to create activity page
   const history = useHistory();
+
   const redirect = () => {
     history.push('/create');
   };
