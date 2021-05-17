@@ -15,12 +15,13 @@ export const ActivitiesContext = React.createContext<ActivityContextType | null>
 );
 
 export function ActivityContext(props: ActivityContextProps) {
-  const { data, isLoading, isError, error } = useRequest('/feed');
+  const { data, isLoading, isError, isFetching, error } = useRequest('/feed');
   const [activities, setActivities] = useState(data);
   const [selectedActivityId, setSelectedActivityId] = useState<number>();
 
   if (isLoading) return <span>Is Loading...</span>;
-  if (isError) <span>Error: {error.message}</span>;
+  if (isError) return <span>Error: {error.message}</span>;
+  if (isFetching) return <span>Is Updating...</span>;
 
   function formatCountdown(timestamp: number): number {
     const a: number = new Date().getTime();
