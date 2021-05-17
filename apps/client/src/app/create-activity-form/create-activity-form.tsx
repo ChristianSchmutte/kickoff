@@ -14,6 +14,13 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
   const { selectedActivity, handler, editActivity, idHandler } =
     useContext(ActivitiesContext) || {};
 
+  const { mutate } = useMutation(postActivity, {
+    onMutate: (newData) => {
+      queryClient.invalidateQueries('feed');
+      console.log(newData);
+    }
+  });
+
   const iniState = {
     title: '',
     description: '',
