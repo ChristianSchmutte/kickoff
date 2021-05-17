@@ -27,4 +27,23 @@ implements OnModuleInit, OnModuleDestroy {
       throw new InternalServerErrorException('Internal server error');
     }
   }
+
+  async createOrUpdate(id: number, firstname: string, lastname: string): Promise<User> {
+    try {
+      return this.user.upsert({
+        where: { id },
+      update: {
+        firstname,
+        lastname,
+      },
+      create: {
+        firstname,
+        lastname,
+      },
+      });
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException('Could not create or update user');
+    }
+  }
 }

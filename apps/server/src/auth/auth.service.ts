@@ -5,5 +5,5 @@ import { User } from '.prisma/client';
 
 @Injectable()
 export class AuthService {
-
+  
 }
