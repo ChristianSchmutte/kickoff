@@ -12,7 +12,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-
+  // TODO Dev/ Test/ Prod environment 
+  app.enableCors();
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Kickoff')
     .setDescription('API for Kickoff event app')
