@@ -6,6 +6,7 @@ import photo from '../../assets/photo.jpeg';
 import { useHistory } from 'react-router-dom';
 import { ActivitiesContext } from '../activity-context/activity-context';
 import edit from '../../assets/edit.svg';
+import MapComponent from '../map-component/map-component';
 // import useSWR from 'swr';
 
 /* eslint-disable-next-line */
@@ -87,6 +88,7 @@ export function ActivityCard({
         <p className={styles.location}>{location}</p>
         <div className={styles.startToFinish}>{fromStartToFinish}</div>
       </div>
+      <MapComponent />
       <div className={styles.footer}>
         <button type='button' className={styles.join}>
           <span>Join</span>

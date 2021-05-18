@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './activity-context.module.scss';
 import {
   Activity,
@@ -23,8 +23,29 @@ export function ActivityContext(props: ActivityContextProps) {
     error
   } = useRequest('/feed');
 
-  // const [activities, setActivities] = useState<Activity[]>(data);
+  // const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedActivityId, setSelectedActivityId] = useState<number>();
+  // const [geolocation, setGeolocation] = useState([-0.109697, 51.512963]);
+  // const [position, setPosition] = useState([]);
+  // const [postCode, setPostCode] = useState('EC4Y7HL');
+
+  // const onChange = (text) => setPostCode(text);
+
+  // const postCodeApiUrl = `http://api.postcodes.io/postcodes/${postCode}`;
+  // const getCoordinatesFromPostcode = (postCodeApiUrl) => {
+  //   return fetch(postCodeApiUrl)
+  //     .then((response) => response.json())
+  //     .then((json) => json)
+  //     .catch((err) => console.log(err));
+  // };
+
+  // useEffect(() => {
+  //   getCoordinatesFromPostcode(postCodeApiUrl).then((json) =>
+  //     setGeolocation([json.result.longitude, json.result.latitude])
+  //   );
+  // }, [postCodeApiUrl]);
+
+  // console.log(setGeolocation);
 
   if (isLoading) return <span>Is Loading...</span>;
   if (isError) return <span>Error: {error.message}</span>;

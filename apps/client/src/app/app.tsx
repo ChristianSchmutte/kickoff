@@ -7,6 +7,8 @@ import SignUp from './sign-up/sign-up';
 import CreateActivityForm from './create-activity-form/create-activity-form';
 import ActivityContext from './activity-context/activity-context';
 import PageNotFound from './page-not-found/page-not-found';
+import React from 'react';
+import MapComponent from './map-component/map-component';
 
 export function App() {
   const queryClient = new QueryClient();
