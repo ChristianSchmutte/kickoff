@@ -41,5 +41,5 @@ const fetchData = async (endpoint: string): Promise<Feed[]> => {
 };
 
 export const useRequest = (endpoint: string): UseQueryResult<Feed[], Error> => {
-  return useQuery(['feed', endpoint], () => fetchData(endpoint));
+  return useQuery('feed', () => fetchData(endpoint));
 };
