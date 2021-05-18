@@ -5,16 +5,18 @@ import { CreateActivityFormProps } from './create-activity-form.types';
 import './create-activity-form.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient, QueryCache } from 'react-query';
 import { postActivity } from './create-activity-form.service';
 /* eslint-disable-next-line */
 export function CreateActivityForm(props: CreateActivityFormProps) {
   const queryClient = useQueryClient();
-
   const { mutate } = useMutation(postActivity, {
     onMutate: (newData) => {
+      queryClient.cancelQueries('feed');
+      const state = queryClient.getQueryData('feed');
+    },
+    onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries('feed');
-      console.log(newData);
     }
   });
 
@@ -29,9 +31,6 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
     organizerId: 1,
     locationId: 1,
     sportId: 1
-    // id: uuidv4(),
-    // postcode: '',
-    // location_url: ''
   };
 
   let initialState;
