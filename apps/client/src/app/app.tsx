@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Feed from './feed/feed';
 import Login from './login/login';
@@ -22,6 +23,7 @@ export function App() {
           </Switch>
         </BrowserRouter>
       </ActivityContext>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
