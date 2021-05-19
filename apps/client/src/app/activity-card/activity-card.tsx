@@ -5,18 +5,14 @@ import user from '../../assets/user.svg';
 import photo from '../../assets/photo.jpeg';
 import { useHistory } from 'react-router-dom';
 import { ActivitiesContext } from '../activity-context/activity-context';
+import { Activity, Location } from '../activity-context/activity-contex.types';
 import edit from '../../assets/edit.svg';
 import MapComponent from '../map-component/map-component';
 // import useSWR from 'swr';
 
 /* eslint-disable-next-line */
 export interface ActivityCardProps {
-  title: string;
-  description: string;
-  startTimestamp: number;
-  endTimestamp?: number;
-  location: number;
-  id?: number;
+  activity: Activity;
 }
 
 function convertToMoment(timestamp: number): [number, number, number] {
@@ -39,14 +35,15 @@ function formatFromStartToFinish(start: number, finish: number): string {
   )}`;
 }
 
-export function ActivityCard({
-  title,
-  description,
-  startTimestamp,
-  endTimestamp,
-  location,
-  id
-}: ActivityCardProps): JSX.Element {
+export function ActivityCard({ activity }: ActivityCardProps): JSX.Element {
+  const {
+    id,
+    title,
+    description,
+    timestamp: startTimestamp,
+    ends: endTimestamp,
+    location
+  } = activity;
   const timeRemaining: string = formatTimeRemaing(startTimestamp);
   const fromStartToFinish: string = formatFromStartToFinish(
     startTimestamp,
@@ -56,7 +53,8 @@ export function ActivityCard({
   // profilePics: An array of profile pictures for every participant
   const [profilePics, setProfilePics] = useState([]);
 
-  const { idHandler } = useContext(ActivitiesContext) || {};
+  const { idHandler, selectActivityHandler } =
+    useContext(ActivitiesContext) || {};
 
   const renderProfilePics = profilePics.map(({ img, id }) => (
     <div className={styles.profilePicWrapper}>
@@ -69,6 +67,8 @@ export function ActivityCard({
   const redirect = () => {
     history.push('/create');
   };
+
+  console.log('location', location);
 
   return (
     <div className={styles.cardContainer}>
@@ -85,10 +85,13 @@ export function ActivityCard({
           : description}
       </div>
       <div className={styles.details}>
-        <p className={styles.location}>{location}</p>
+        <p className={styles.location}>{location.name}</p>
         <div className={styles.startToFinish}>{fromStartToFinish}</div>
       </div>
-      <MapComponent />
+      <MapComponent
+        latitude={location.latitude}
+        longitude={location.longitude}
+      />
       <div className={styles.footer}>
         <button type='button' className={styles.join}>
           <span>Join</span>
@@ -97,7 +100,7 @@ export function ActivityCard({
           src={edit}
           alt='edit button'
           onClick={(e) => {
-            idHandler(id);
+            selectActivityHandler(activity);
             redirect();
           }}
         />

@@ -12,7 +12,8 @@ import './feed.module.scss';
 export interface FeedProps {}
 
 const Feed = (props: FeedProps): JSX.Element => {
-  const { activities } = useContext(ActivitiesContext) || {};
+  const { activities, selectActivityHandler } =
+    useContext(ActivitiesContext) || {};
 
   const [updatedActivities, setUpdatedActivities] = useState(activities);
 
@@ -26,15 +27,7 @@ const Feed = (props: FeedProps): JSX.Element => {
   const activityCards: JSX.Element[] =
     updatedActivities &&
     updatedActivities.map((activity) => (
-      <ActivityCard
-        id={activity.id}
-        key={activity.id}
-        title={activity.title}
-        description={activity.description}
-        startTimestamp={activity.timestamp}
-        endTimestamp={activity.ends}
-        location={activity.locationId}
-      />
+      <ActivityCard key={activity.id} activity={activity} />
     ));
   return (
     <div className={styles.container}>

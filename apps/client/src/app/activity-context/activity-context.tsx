@@ -23,34 +23,46 @@ export function ActivityContext(props: ActivityContextProps) {
     error
   } = useRequest('/feed');
 
-  // const [activities, setActivities] = useState<Activity[]>([]);
-  const [selectedActivityId, setSelectedActivityId] = useState<number>();
-
-  const [lng, setLng] = useState(-70.9);
-  const [lat, setLat] = useState(42.35);
+  const [lng, setLng] = useState(-0.109697);
+  const [lat, setLat] = useState(51.512963);
   const [zoom, setZoom] = useState(9);
 
-  // const [geolocation, setGeolocation] = useState([-0.109697, 51.512963]);
-  // const [position, setPosition] = useState([]);
-  // const [postCode, setPostCode] = useState('EC4Y7HL');
+  const initialqueryAddress = 'War Memorial Park, Coventry, United kingdom';
+  const [address, setAddress] = useState(initialqueryAddress);
+  const apiAccessKey = 'ab4721ca0c1750b5bc6247df15a8134a';
+  const initialGeoCodingApiUrl = `http://api.positionstack.com/v1/forward?query=${address}&access_key=${apiAccessKey}`;
+  const [geoCodingApiUrl, setGeoCodingApiUrl] = useState(
+    initialGeoCodingApiUrl
+  );
+  const getCoordinates = (geoCodingApiUrl) => {
+    return fetch(geoCodingApiUrl)
+      .then((response) => response.json())
+      .then((json) => json)
+      .catch((err) => console.log(err));
+  };
 
-  // const onChange = (text) => setPostCode(text);
+  useEffect(() => {
+    setGeoCodingApiUrl(
+      `http://api.positionstack.com/v1/forward?query=${address}&access_key=${apiAccessKey}`
+    );
+  }, [address]);
 
-  // const postCodeApiUrl = `http://api.postcodes.io/postcodes/${postCode}`;
-  // const getCoordinatesFromPostcode = (postCodeApiUrl) => {
-  //   return fetch(postCodeApiUrl)
-  //     .then((response) => response.json())
-  //     .then((json) => json)
-  //     .catch((err) => console.log(err));
-  // };
+  useEffect(() => {
+    console.log(geoCodingApiUrl);
+    getCoordinates(geoCodingApiUrl).then((json) =>
+      setLng(json.data[0].longitude)
+    );
+  }, [geoCodingApiUrl]);
 
-  // useEffect(() => {
-  //   getCoordinatesFromPostcode(postCodeApiUrl).then((json) =>
-  //     setGeolocation([json.result.longitude, json.result.latitude])
-  //   );
-  // }, [postCodeApiUrl]);
+  useEffect(() => {
+    getCoordinates(geoCodingApiUrl).then((json) =>
+      // setPosition([json.data[0].longitude, json.data[0].latitude, 13])
+      setLat(json.data[0].latitude)
+    );
+  }, [geoCodingApiUrl]);
 
-  // console.log(setGeolocation);
+  // const [activities, setActivities] = useState<Activity[]>([]);
+  const [selectedActivity, setSelectedActivity] = useState<Activity>(null);
 
   if (isLoading) return <span>Is Loading...</span>;
   if (isError) return <span>Error: {error.message}</span>;
@@ -63,12 +75,12 @@ export function ActivityContext(props: ActivityContextProps) {
     return timeRemainingInMilliseconds;
   };
 
-  const selectedActivity: Activity =
-    activities &&
-    activities.find((activity) => activity.id === selectedActivityId);
+  // const selectedActivity: Activity =
+  //   activities &&
+  //   activities.find((activity) => activity.id === selectedActivityId);
 
-  const handleSelectedActivityId = (id: number): void => {
-    setSelectedActivityId(id);
+  const handleSelectedActivity = (activity: Activity): void => {
+    setSelectedActivity(activity);
   };
 
   const sortedActivities =
@@ -79,42 +91,47 @@ export function ActivityContext(props: ActivityContextProps) {
       return 0;
     });
 
-  const handleActivityPost = (newActivity) => {
-    setActivities([...activities, newActivity]);
-  };
-  // TODO: try to modify the editActivityHandler into a pure function with no side effects (or at least minimize side effects)
-  const editActivityHandler = (id, newActivity) => {
-    const newActivities = [...activities];
-    const index = activities.findIndex((activity) => activity.id === id);
-    newActivities[index] = newActivity;
-    setActivities(newActivities);
+  // const handleActivityPost = (newActivity) => {
+  //   setActivities([...activities, newActivity]);
+  // };
+
+  // const editActivityHandler = (id, newActivity) => {
+  //   const newActivities = [...activities];
+  //   const index = activities.findIndex((activity) => activity.id === id);
+  //   newActivities[index] = newActivity;
+  //   setActivities(newActivities);
+  // };
+
+  const handleLatitude = (change) => {
+    setLat(change);
   };
 
-  const handleLatitude = (newActivity) => {
-    setLat(lat);
+  const handleLongitude = (change) => {
+    setLng(change);
   };
 
-  const handleLongitude = (newActivity) => {
-    setLng(lng);
+  const handleZoom = (change) => {
+    setZoom(change);
   };
 
-  const handleZoom = (newActivity) => {
-    setZoom(zoom);
+  const handleAddress = (change) => {
+    setAddress(change);
   };
 
   const contextContent = {
     activities: sortedActivities,
-    handler: handleActivityPost,
-    idHandler: handleSelectedActivityId,
-    idx: selectedActivityId,
+    // handler: handleActivityPost,
+    selectActivityHandler: handleSelectedActivity,
+    // idx: selectedActivityId,
     selectedActivity: selectedActivity,
-    editActivity: editActivityHandler,
+    // editActivity: editActivityHandler,
     latitudeHandler: handleLatitude,
     longitudeHandler: handleLongitude,
     zoomHandler: handleZoom,
     latitude: lat,
     longitude: lng,
-    zooom: zoom
+    zooom: zoom,
+    addressHandler: handleAddress
   };
 
   return (
