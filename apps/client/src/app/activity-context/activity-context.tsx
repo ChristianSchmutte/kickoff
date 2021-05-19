@@ -25,6 +25,11 @@ export function ActivityContext(props: ActivityContextProps) {
 
   // const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedActivityId, setSelectedActivityId] = useState<number>();
+
+  const [lng, setLng] = useState(-70.9);
+  const [lat, setLat] = useState(42.35);
+  const [zoom, setZoom] = useState(9);
+
   // const [geolocation, setGeolocation] = useState([-0.109697, 51.512963]);
   // const [position, setPosition] = useState([]);
   // const [postCode, setPostCode] = useState('EC4Y7HL');
@@ -85,13 +90,31 @@ export function ActivityContext(props: ActivityContextProps) {
     setActivities(newActivities);
   };
 
+  const handleLatitude = (newActivity) => {
+    setLat(lat);
+  };
+
+  const handleLongitude = (newActivity) => {
+    setLng(lng);
+  };
+
+  const handleZoom = (newActivity) => {
+    setZoom(zoom);
+  };
+
   const contextContent = {
     activities: sortedActivities,
     handler: handleActivityPost,
     idHandler: handleSelectedActivityId,
     idx: selectedActivityId,
     selectedActivity: selectedActivity,
-    editActivity: editActivityHandler
+    editActivity: editActivityHandler,
+    latitudeHandler: handleLatitude,
+    longitudeHandler: handleLongitude,
+    zoomHandler: handleZoom,
+    latitude: lat,
+    longitude: lng,
+    zooom: zoom
   };
 
   return (
