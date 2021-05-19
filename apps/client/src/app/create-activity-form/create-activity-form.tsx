@@ -20,7 +20,8 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
     }
   });
 
-  const { selectedActivity } = useContext(ActivitiesContext) || {};
+  const { selectedActivity, selectActivityHandler } =
+    useContext(ActivitiesContext) || {};
 
   const [lng, setLng] = useState();
   const [lat, setLat] = useState();
@@ -48,30 +49,27 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
 
   useEffect(() => {
     console.log(geoCodingApiUrl);
-    getCoordinates(geoCodingApiUrl).then((json) =>
-      setLng(json.data[0].longitude)
-    );
-  }, [geoCodingApiUrl]);
-
-  useEffect(() => {
-    getCoordinates(geoCodingApiUrl).then((json) =>
-      // setPosition([json.data[0].longitude, json.data[0].latitude, 13])
-      setLat(json.data[0].latitude)
-    );
+    getCoordinates(geoCodingApiUrl).then((json) => {
+      setLng(json.data[0].longitude);
+      setLat(json.data[0].latitude);
+    });
   }, [geoCodingApiUrl]);
 
   useEffect(() => {
     setLocation({ name: address, lat: lat, lng: lng });
   }, [lat, lng, address]);
 
-  // console.log('lat, lng', lat, lng);
+  console.log('lat, lng', lat, lng);
 
   const iniState = {
     title: '',
     description: '',
     timestamp: new Date().toJSON(),
     ends: new Date().toJSON(),
-    location: { name: '', lat: null, lng: null }
+    location: { name: '', lat: null, lng: null },
+    locationId: 1,
+    organizerId: 1,
+    sportId: 1
   };
 
   let initialState;
@@ -98,7 +96,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
 
   // TODO: remove this handler, since it's not being used anywhere
   const editActivityHandler = (changes) => {
-    editActivity(postedActivity.id, { ...postedActivity, ...changes });
+    selectActivityHandler({ ...postedActivity, ...changes });
   };
 
   const history = useHistory();
@@ -108,14 +106,15 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
 
   const onSaveHandler = async (): Promise<void> => {
     if (mode === 'Edit') {
-      editActivity(postedActivity.id, postedActivity);
+      selectActivityHandler(postedActivity);
     } else if (mutate) {
-      console.log(postedActivity);
       await mutate({ endpoint: '/activity', activity: postedActivity });
     }
     redirectToFeed();
-    idHandler(null);
+    selectActivityHandler(null);
   };
+
+  console.log('mode', mode);
 
   console.log('postActivity', postedActivity);
   return (
@@ -187,7 +186,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           placeholder='Start date and time Required'
           value={postedActivity.startTimestamp}
           onChange={(e) => {
-            handleChange({ startTimestamp: e.target.value });
+            handleChange({ timestamp: Date.parse(e.target.value) });
           }}
         />
         <br />
@@ -200,7 +199,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
           id='endTimestamp'
           value={postedActivity.endTimestamp}
           onChange={(e) => {
-            handleChange({ endTimestamp: e.target.value });
+            handleChange({ ends: Date.parse(e.target.value) });
           }}
         />
         <br />

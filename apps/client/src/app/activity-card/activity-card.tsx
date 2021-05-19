@@ -68,7 +68,11 @@ export function ActivityCard({ activity }: ActivityCardProps): JSX.Element {
     history.push('/create');
   };
 
-  console.log('location', location);
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   return (
     <div className={styles.cardContainer}>
@@ -77,21 +81,26 @@ export function ActivityCard({ activity }: ActivityCardProps): JSX.Element {
         <div className={styles.titleWrapper}>
           <h3 className={styles.title}>{title}</h3>
           <h6 className={styles.timeRemaining}>{timeRemaining}</h6>
+          <button onClick={handleClick}>&times;</button>
         </div>
       </div>
-      <div className={styles.description}>
-        {description.length > 200
-          ? 'Number of characters exceeds the limit of 200!'
-          : description}
-      </div>
-      <div className={styles.details}>
-        <p className={styles.location}>{location.name}</p>
-        <div className={styles.startToFinish}>{fromStartToFinish}</div>
-      </div>
-      <MapComponent
-        latitude={location.latitude}
-        longitude={location.longitude}
-      />
+      {open && (
+        <>
+          <div className={styles.description}>
+            {description.length > 200
+              ? 'Number of characters exceeds the limit of 200!'
+              : description}
+          </div>
+          <div className={styles.details}>
+            <p className={styles.location}>{location.name}</p>
+            <div className={styles.startToFinish}>{fromStartToFinish}</div>
+          </div>
+          <MapComponent
+            latitude={location.latitude}
+            longitude={location.longitude}
+          />
+        </>
+      )}
       <div className={styles.footer}>
         <button type='button' className={styles.join}>
           <span>Join</span>
