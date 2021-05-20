@@ -96,7 +96,6 @@ export function ActivityContext(props: ActivityContextProps) {
     // addressHandler: handleAddress
   };
 
-  console.log('act', activities);
   return (
     <ActivitiesContext.Provider value={contextContent}>
       {props.children}

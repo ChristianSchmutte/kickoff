@@ -53,8 +53,7 @@ export function ActivityCard({ activity }: ActivityCardProps): JSX.Element {
   // profilePics: An array of profile pictures for every participant
   const [profilePics, setProfilePics] = useState([]);
 
-  const { idHandler, selectActivityHandler } =
-    useContext(ActivitiesContext) || {};
+  const { selectActivityHandler } = useContext(ActivitiesContext) || {};
 
   const renderProfilePics = profilePics.map(({ img, id }) => (
     <div className={styles.profilePicWrapper}>
