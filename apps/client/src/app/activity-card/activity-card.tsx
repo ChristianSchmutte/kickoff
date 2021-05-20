@@ -74,6 +74,8 @@ export function ActivityCard({ activity }: ActivityCardProps): JSX.Element {
     setOpen(!open);
   };
 
+  const [joined, setJoined] = useState('Join');
+
   return (
     <div className={styles.cardContainer}>
       <div className={styles.header}>
@@ -81,38 +83,44 @@ export function ActivityCard({ activity }: ActivityCardProps): JSX.Element {
         <div className={styles.titleWrapper}>
           <h3 className={styles.title}>{title}</h3>
           <h6 className={styles.timeRemaining}>{timeRemaining}</h6>
-          <button onClick={handleClick}>&times;</button>
         </div>
+        {/* <button onClick={handleClick}>Expand</button> */}
+      </div>
+      <div className={styles.description}>
+        {description.length > 200
+          ? 'Number of characters exceeds the limit of 200!'
+          : description}
+      </div>
+      <div className={styles.details}>
+        <div onClick={handleClick} className={styles.location}>
+          {location.name}
+        </div>
+        <div className={styles.startToFinish}>{fromStartToFinish}</div>
       </div>
       {open && (
-        <>
-          <div className={styles.description}>
-            {description.length > 200
-              ? 'Number of characters exceeds the limit of 200!'
-              : description}
-          </div>
-          <div className={styles.details}>
-            <p className={styles.location}>{location.name}</p>
-            <div className={styles.startToFinish}>{fromStartToFinish}</div>
-          </div>
-          <MapComponent
-            latitude={location.latitude}
-            longitude={location.longitude}
-          />
-        </>
+        <MapComponent
+          latitude={location.latitude}
+          longitude={location.longitude}
+        />
       )}
       <div className={styles.footer}>
-        <button type='button' className={styles.join}>
-          <span>Join</span>
+        <button
+          onClick={() => {
+            setJoined('Joined');
+          }}
+          type='button'
+          className={styles.join}
+        >
+          <span>{joined}</span>
         </button>
-        <img
+        {/* <img
           src={edit}
           alt='edit button'
           onClick={(e) => {
             selectActivityHandler(activity);
             redirect();
           }}
-        />
+        /> */}
         <div className={styles.particpants}>
           {renderProfilePics ? renderProfilePics : undefined}
         </div>

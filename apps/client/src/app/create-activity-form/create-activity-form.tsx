@@ -29,7 +29,7 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
 
   const initialqueryAddress = 'War Memorial Park, Coventry, United kingdom';
   const [address, setAddress] = useState();
-  const apiAccessKey = 'ab4721ca0c1750b5bc6247df15a8134a';
+  const apiAccessKey = process.env.NX_POSITIONSTACK_KEY;
   const initialGeoCodingApiUrl = `http://api.positionstack.com/v1/forward?query=${address}&access_key=${apiAccessKey}`;
   const [geoCodingApiUrl, setGeoCodingApiUrl] = useState(
     initialGeoCodingApiUrl

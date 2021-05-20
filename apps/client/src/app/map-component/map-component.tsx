@@ -3,8 +3,7 @@ import React, { useRef, useEffect, useState, useContext } from 'react';
 import mapboxgl from 'mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import css from './map-component.module.scss';
 
-mapboxgl.accessToken =
-  'pk.eyJ1IjoiYWJkdWwtamF3d2FkIiwiYSI6ImNrbnhncDBkdjBsbXYydm52c3pydXAwb3oifQ.UJWZ9Ect3PF9skoTdOuExg';
+mapboxgl.accessToken = process.env.NX_MAPBOX_KEY;
 /* eslint-disable-next-line */
 export interface MapComponentProps {
   latitude: number;

@@ -1,14 +1,17 @@
-$background-color: #ffffff;
-$buttons: #6c60ff;
+$background-color: #fff;
+// $buttons: #6c60ff;
+$buttons: #4d2dc1;
 $box-shadow: 0px 3px 3px 2px rgba(101, 101, 101, 0.26);
-$font-style: Ubuntu Mono;
+// $font-style: Ubuntu Mono;
+$font-style: sans-serif;
 $misc-color: #00b5b2;
 
 .cardContainer {
   * {
     font-family: $font-style;
   }
-  width: 95vw;
+  border-radius: 10px;
+  width: 90vw;
   display: flex;
   flex-direction: column;
   background-color: $background-color;
@@ -16,21 +19,25 @@ $misc-color: #00b5b2;
   margin-top: 1rem;
   margin-bottom: 1rem;
   .header {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    align-content: center;
     img {
-      margin: 0.56rem;
-      width: 5rem;
-      height: 5rem;
+      margin: 0.4rem;
+      width: 3rem;
+      height: 3rem;
       border-radius: 50%;
     }
     .titleWrapper {
-      text-align: center;
+      text-align: left;
       margin: 0;
+      margin-top: 1rem;
+      margin-left: 1rem;
       h3 {
         margin: 0;
+        margin-top: 0.4rem;
       }
       h6 {
         margin-top: 0.2rem;
@@ -56,6 +63,10 @@ $misc-color: #00b5b2;
     p {
       margin: 0;
     }
+    .location {
+      font-weight: bold;
+      text-decoration: underline;
+    }
     .startToFinish {
       font-size: small;
       margin-top: 0.2rem;
@@ -71,7 +82,8 @@ $misc-color: #00b5b2;
     button {
       background-color: $buttons;
       box-shadow: $box-shadow;
-      border-radius: 5px;
+      border-radius: 200px;
+      border: 0px solid;
       width: 5rem;
       height: 2rem;
       margin-bottom: 1rem;
