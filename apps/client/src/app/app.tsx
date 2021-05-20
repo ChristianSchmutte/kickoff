@@ -27,6 +27,7 @@ export function App() {
           </Switch>
         </BrowserRouter>
       </ActivityContext>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

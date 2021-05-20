@@ -15,6 +15,7 @@ const fetchData = async (endpoint: string): Promise<Activity[]> => {
   }
 };
 
+
 export const useRequest = (
   endpoint: string
 ): UseQueryResult<Activity[], Error> => {
