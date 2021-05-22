@@ -1,4 +1,7 @@
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # Kickoff
 - A sports-social media app, based on what your activities your friends plan next.
@@ -68,3 +71,17 @@ Run `npx nx serve client` for a dev server. Navigate to http://localhost:4200/. 
 
 ## Contributors
 @all-contributors add
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/ninjarogue"><img src="https://avatars.githubusercontent.com/u/74705062?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aric Jiang</b></sub></a><br /><a href="https://github.com/ChristianSchmutte/kickoff/commits?author=ninjarogue" title="Code">💻</a> <a href="#design-ninjarogue" title="Design">🎨</a> <a href="#projectManagement-ninjarogue" title="Project Management">📆</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
