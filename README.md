@@ -1,94 +1,68 @@
 
 
 # Kickoff
+- A sports-social media app, based on what your activities your friends plan next.
 
-This project was generated using [Nx](https://nx.dev).
+If you've ever felt the need to go out and play some basketball but wanted to join a local match, rather than
+shooting hoops in your backyard, then Kickoff is the right app for you!
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+The long term vision of this project is to bring people from a community together for sports activities.
+Want to organize a match at your local sports ground? Then create an activity, with a title, location, and a time.
 
-🔎 **Powerful, Extensible Dev Tools**
+Friends and other users close to that location can see the activity and join you with a press of a button.
 
-## Adding capabilities to your workspace
+## Feature List implemented | planned 
+- [x] UI connecting to server
+- [x] Mobile friendly UI
+- [x] Create activites
+- [x] Join Activities
+- [x] Login with Facebook
+- [ ] Get local events
+- [ ] Add friends
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+Feel free to contribute!
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+## Tech Stack
 
-Below are our core plugins:
+We love TypeScript!
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+#### MonoRepo
+https://nx.dev/
 
-There are also many [community plugins](https://nx.dev/nx-community) you could add.
+### Frontend
 
-## Generate an application
+#### React
+https://reactjs.org/
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are shareable across libraries and applications. They can be imported from `@kickoff/mylib`.
-
-## Development server
-
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
+#### Axios
+https://axios-http.com/
 
 
+### Backend
 
-## ☁ Nx Cloud
+#### NestJS
+https://docs.nestjs.com
 
-### Computation Memoization in the Cloud
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+#### Prisma
+https://prisma.io
 
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
 
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
+#### PostgreSQL
+https://www.postgresql.org/
 
-Visit [Nx Cloud](https://nx.app/) to learn more.
+
+##  Development servers
+
+There are a few steps to get it running.
+
+Run `npm install` on the root directory to install all necessary dependencies.
+
+### Backend 
+The server needs some environment variables
+For FB OAuth2: generate clientID secret and place it in a .env file as well as a Postgres Database connection.
+Further instructions are listen in the [servers own Readme](https://github.com/ChristianSchmutte/kickoff/blob/master/apps/server/readme.md)
+
+### Frontend
+Run `npx nx serve client` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+
