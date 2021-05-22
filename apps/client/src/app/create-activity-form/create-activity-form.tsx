@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ActivitiesContext } from '../activity-context/activity-context';
 import { CreateActivityFormProps } from './create-activity-form.types';
@@ -20,16 +20,55 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
     }
   });
 
-  const { selectedActivity, handler, editActivity, idHandler } =
+  const { selectedActivity, selectActivityHandler } =
     useContext(ActivitiesContext) || {};
+
+  const [lng, setLng] = useState();
+  const [lat, setLat] = useState();
+  const [location, setLocation] = useState({ name: '', lat: null, lng: null });
+
+  const initialqueryAddress = 'War Memorial Park, Coventry, United kingdom';
+  const [address, setAddress] = useState();
+  const apiAccessKey = process.env.NX_POSITIONSTACK_KEY;
+  const initialGeoCodingApiUrl = `http://api.positionstack.com/v1/forward?query=${address}&access_key=${apiAccessKey}`;
+  const [geoCodingApiUrl, setGeoCodingApiUrl] = useState(
+    initialGeoCodingApiUrl
+  );
+  const getCoordinates = (geoCodingApiUrl) => {
+    return fetch(geoCodingApiUrl)
+      .then((response) => response.json())
+      .then((json) => json)
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    setGeoCodingApiUrl(
+      `http://api.positionstack.com/v1/forward?query=${address}&access_key=${apiAccessKey}`
+    );
+  }, [address]);
+
+  useEffect(() => {
+    console.log(geoCodingApiUrl);
+    getCoordinates(geoCodingApiUrl).then((json) => {
+      setLng(json.data[0].longitude);
+      setLat(json.data[0].latitude);
+    });
+  }, [geoCodingApiUrl]);
+
+  useEffect(() => {
+    setLocation({ name: address, lat: lat, lng: lng });
+  }, [lat, lng, address]);
+
+  console.log('lat, lng', lat, lng);
 
   const iniState = {
     title: '',
     description: '',
-    timestamp: new Date().getTime(),
-    ends: new Date().getTime(),
-    organizerId: 1,
+    timestamp: new Date().toJSON(),
+    ends: new Date().toJSON(),
+    location: { name: '', lat: null, lng: null },
     locationId: 1,
+    organizerId: 1,
     sportId: 1
   };
 
@@ -47,9 +86,17 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
   const handleChange = (changes) => {
     setPostedActivity({ ...postedActivity, ...changes });
   };
+  const handleAddressChange = (changesInForm) => {
+    setAddress(changesInForm);
+  };
+
+  useEffect(() => {
+    setPostedActivity({ ...postedActivity, location });
+  }, [location]);
+
   // TODO: remove this handler, since it's not being used anywhere
   const editActivityHandler = (changes) => {
-    editActivity(postedActivity.id, { ...postedActivity, ...changes });
+    selectActivityHandler({ ...postedActivity, ...changes });
   };
 
   const history = useHistory();
@@ -59,15 +106,17 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
 
   const onSaveHandler = async (): Promise<void> => {
     if (mode === 'Edit') {
-      editActivity(postedActivity.id, postedActivity);
+      selectActivityHandler(postedActivity);
     } else if (mutate) {
-      console.log(postedActivity);
       await mutate({ endpoint: '/activity', activity: postedActivity });
     }
     redirectToFeed();
-    idHandler(null);
+    selectActivityHandler(null);
   };
 
+  console.log('mode', mode);
+
+  console.log('postActivity', postedActivity);
   return (
     <>
       <form>
@@ -88,32 +137,19 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
         />
         <br />
         <br />
-        <label htmlFor='location'>Place</label>
+        <label htmlFor='location'>Address</label>
         <br />
-        {/* <input
+        <input
           type='text'
           name='location'
           id='location'
           placeholder='Location Required'
-          value={postedActivity.location}
+          value={postedActivity.address}
           onChange={(e) => {
-            handleChange({ location: e.target.value });
+            // handleChange({ location: e.target.value });
+            handleAddressChange(e.target.value);
           }}
-        /> */}
-        <br />
-        <br />
-        <label htmlFor='postcode'>Post Code</label>
-        <br />
-        {/* <input
-          type='text'
-          name='postcode'
-          id='postcode'
-          placeholder='PostCode Required'
-          value={postedActivity.postcode}
-          onChange={(e) => {
-            handleChange({ postcode: e.target.value });
-          }}
-        /> */}
+        />
         <br />
         <br />
         <label htmlFor='location_url'>Location URL</label>
@@ -144,13 +180,13 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
         <label htmlFor='startTimestamp'>Start</label>
         <br />
         <input
-          type='datetime'
+          type='datetime-local'
           name='startTimestamp'
           id='startTimestamp'
           placeholder='Start date and time Required'
           value={postedActivity.startTimestamp}
           onChange={(e) => {
-            handleChange({ startTimestamp: e.target.value });
+            handleChange({ timestamp: Date.parse(e.target.value) });
           }}
         />
         <br />
@@ -158,24 +194,13 @@ export function CreateActivityForm(props: CreateActivityFormProps) {
         <label htmlFor='endTimestamp'>Finish</label>
         <br />
         <input
-          type='datetime'
+          type='datetime-local'
           name='endTimestamp'
           id='endTimestamp'
           value={postedActivity.endTimestamp}
           onChange={(e) => {
-            handleChange({ endTimestamp: e.target.value });
+            handleChange({ ends: Date.parse(e.target.value) });
           }}
-        />
-        <br />
-        <br />
-        {/* To be changed to map later*/}
-        <label htmlFor='map'>Map</label>
-        <br />
-        <textarea
-          name='map'
-          id='map'
-          value=''
-          onChange={(e) => handleChange({ description: e.target.value })}
         />
         <br />
         <br />

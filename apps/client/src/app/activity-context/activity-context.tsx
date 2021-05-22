@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './activity-context.module.scss';
 import {
   Activity,
@@ -23,8 +23,8 @@ export function ActivityContext(props: ActivityContextProps) {
     error
   } = useRequest('/feed');
 
-  // const [activities, setActivities] = useState<Activity[]>(data);
-  const [selectedActivityId, setSelectedActivityId] = useState<number>();
+  // const [activities, setActivities] = useState<Activity[]>([]);
+  const [selectedActivity, setSelectedActivity] = useState<Activity>(null);
 
   if (isLoading) return <span>Is Loading...</span>;
   if (isError) return <span>Error: {error.message}</span>;
@@ -37,13 +37,9 @@ export function ActivityContext(props: ActivityContextProps) {
     return timeRemainingInMilliseconds;
   };
 
-  const selectedActivity: Activity =
-    activities &&
-    activities.find((activity) => activity.id === selectedActivityId);
-
-  const handleSelectedActivityId = (id: number): void => {
-    setSelectedActivityId(id);
-  };
+  // const selectedActivity: Activity =
+  //   activities &&
+  //   activities.find((activity) => activity.id === selectedActivityId);
 
   const sortedActivities =
     activities &&
@@ -53,24 +49,51 @@ export function ActivityContext(props: ActivityContextProps) {
       return 0;
     });
 
-  const handleActivityPost = (newActivity) => {
-    setActivities([...activities, newActivity]);
+  const handleSelectedActivity = (activity: Activity): void => {
+    setSelectedActivity(activity);
   };
-  // TODO: try to modify the editActivityHandler into a pure function with no side effects (or at least minimize side effects)
-  const editActivityHandler = (id, newActivity) => {
-    const newActivities = [...activities];
-    const index = activities.findIndex((activity) => activity.id === id);
-    newActivities[index] = newActivity;
-    setActivities(newActivities);
-  };
+
+  // const handleActivityPost = (newActivity) => {
+  //   setActivities([...activities, newActivity]);
+  // };
+
+  // const editActivityHandler = (id, newActivity) => {
+  //   const newActivities = [...activities];
+  //   const index = activities.findIndex((activity) => activity.id === id);
+  //   newActivities[index] = newActivity;
+  //   setActivities(newActivities);
+  // };
+
+  // const handleLatitude = (change) => {
+  //   setLat(change);
+  // };
+
+  // const handleLongitude = (change) => {
+  //   setLng(change);
+  // };
+
+  // const handleZoom = (change) => {
+  //   setZoom(change);
+  // };
+
+  // const handleAddress = (change) => {
+  //   setAddress(change);
+  // };
 
   const contextContent = {
     activities: sortedActivities,
-    handler: handleActivityPost,
-    idHandler: handleSelectedActivityId,
-    idx: selectedActivityId,
-    selectedActivity: selectedActivity,
-    editActivity: editActivityHandler
+    // handler: handleActivityPost,
+    selectActivityHandler: handleSelectedActivity,
+    // idx: selectedActivityId,
+    selectedActivity: selectedActivity
+    // // editActivity: editActivityHandler,
+    // latitudeHandler: handleLatitude,
+    // longitudeHandler: handleLongitude,
+    // zoomHandler: handleZoom,
+    // latitude: lat,
+    // longitude: lng,
+    // zooom: zoom,
+    // addressHandler: handleAddress
   };
 
   return (

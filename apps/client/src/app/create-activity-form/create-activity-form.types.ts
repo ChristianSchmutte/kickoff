@@ -1,11 +1,16 @@
+interface Location {
+  name: string;
+  latitude: number;
+  longitude: number;
+}
+
 interface Activity {
   title: string;
   description: string;
   startTimestamp: number;
   endTimestamp: number;
-  location: string;
+  location: Location;
   id: string;
-  postcode: string;
   location_url: string;
 }
 
