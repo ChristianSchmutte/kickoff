@@ -23,7 +23,6 @@ export function ActivityContext(props: ActivityContextProps) {
     error
   } = useRequest('/feed');
 
-  // const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<Activity>(null);
 
   if (isLoading) return <span>Is Loading...</span>;
@@ -37,10 +36,6 @@ export function ActivityContext(props: ActivityContextProps) {
     return timeRemainingInMilliseconds;
   };
 
-  // const selectedActivity: Activity =
-  //   activities &&
-  //   activities.find((activity) => activity.id === selectedActivityId);
-
   const sortedActivities =
     activities &&
     [...activities].sort((a, b) => {
@@ -53,47 +48,10 @@ export function ActivityContext(props: ActivityContextProps) {
     setSelectedActivity(activity);
   };
 
-  // const handleActivityPost = (newActivity) => {
-  //   setActivities([...activities, newActivity]);
-  // };
-
-  // const editActivityHandler = (id, newActivity) => {
-  //   const newActivities = [...activities];
-  //   const index = activities.findIndex((activity) => activity.id === id);
-  //   newActivities[index] = newActivity;
-  //   setActivities(newActivities);
-  // };
-
-  // const handleLatitude = (change) => {
-  //   setLat(change);
-  // };
-
-  // const handleLongitude = (change) => {
-  //   setLng(change);
-  // };
-
-  // const handleZoom = (change) => {
-  //   setZoom(change);
-  // };
-
-  // const handleAddress = (change) => {
-  //   setAddress(change);
-  // };
-
   const contextContent = {
     activities: sortedActivities,
-    // handler: handleActivityPost,
     selectActivityHandler: handleSelectedActivity,
-    // idx: selectedActivityId,
     selectedActivity: selectedActivity
-    // // editActivity: editActivityHandler,
-    // latitudeHandler: handleLatitude,
-    // longitudeHandler: handleLongitude,
-    // zoomHandler: handleZoom,
-    // latitude: lat,
-    // longitude: lng,
-    // zooom: zoom,
-    // addressHandler: handleAddress
   };
 
   return (
